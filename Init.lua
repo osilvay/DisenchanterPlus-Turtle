@@ -30,17 +30,4 @@ local options = {
   }
 }
 
-DisenchanterPlus.menu = {
-  ["L1"] = {
-    { "text", L["Title"],                                           "isTitle",      true },
-    { "text", L["Version"] .. " : " .. DisenchanterPlus.version,    "notClickable", true },
-    {},
-    { "text", L["Status"] .. " : " .. DisenchanterPlus:GetStatus(), "notClickable", false },
-  },
-}
-
 DisenchanterPlus:RegisterChatCommand({ "/DisenchanterPlus", "/dplus" }, options, "DISENCHANTERPLUS")
-DisenchanterPlus:RegisterDB("DisenchanterPlusDB")
-DisenchanterPlus:RegisterDefaults("profile", {
-  debug = "off",
-})

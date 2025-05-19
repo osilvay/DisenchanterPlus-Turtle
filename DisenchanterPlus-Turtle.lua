@@ -11,6 +11,14 @@ DisenchanterPlus.logColor = "FFC1C1C1"
 DisenchanterPlus.timeColor = "FFB2FC86"
 DisenchanterPlus.onColor = "FF46FF31"
 DisenchanterPlus.offColor = "FFFF3131"
+DisenchanterPlus.pausedColor = "FFFFE431"
+DisenchanterPlus.unknownColor = "FF919191"
+
+DisenchanterPlus:RegisterDB("DisenchanterPlusDB")
+DisenchanterPlus:RegisterDefaults("profile", {
+  debug = "off",
+  status = "stopped"
+})
 
 ---Print
 function DisenchanterPlus:Print(message)
@@ -62,14 +70,7 @@ end
 ---Check debug enabled
 function DisenchanterPlus:IsDebugEnabled()
   if DisenchanterPlus.db.profile.debug == "on" then
-    DisenchanterPlus:Debug(string.format("Debug enabled : |c%s%s|r", DisenchanterPlus.onColor, "on"))
     return true
   end
-  DisenchanterPlus:Debug(string.format("Debug enabled : |c%s%s|r", DisenchanterPlus.offColor, "off"))
   return false
-end
-
----Get addon status
-function DisenchanterPlus:GetStatus()
-  return string.format("|c%s%s|r", DisenchanterPlus.onColor, "running")
 end

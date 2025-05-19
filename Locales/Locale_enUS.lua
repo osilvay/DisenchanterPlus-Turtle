@@ -8,7 +8,7 @@ L:RegisterTranslations("enUS", function()
     ["Title"]                   = true,
     ["Version"]                 = true,
     ["Status"]                  = true,
-
+    ["Debug"]                   = true,
   }
 end)
 
