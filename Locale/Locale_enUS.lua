@@ -1,4 +1,4 @@
-local L = AceLibrary("AceLocale-2.2"):new("Altoholic")
+local L = LibStub("AceLocale-2.2"):new("DisenchanterPlus")
 
 L:RegisterTranslations("enUS", function()
   return {
