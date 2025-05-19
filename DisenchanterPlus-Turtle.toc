@@ -1,0 +1,21 @@
+## Interface: 11200
+## Title: |cffe1e1e1Disenchanter|r |cffed6bffPlus|r |cff9191a1v1.0.9.2|r
+## Version: Version 0.0.0.1
+## Notes: Disenchanter tool for Turtle WoW
+## Author: osilvay
+## SavedVariables: DisenchanterPlusDB
+## OptionalDeps: Ace2, CandyBarLib, CompostLib, DewdropLib, MetrognomeLib, TabletLib
+## DefaultState: enabled
+## LoadOnDemand: 0
+
+# Libraries
+Libs\Ace2\AceLibrary\AceLibrary.lua
+Libs\LibStub\LibStub.lua
+
+# Core
+DisenchanterPlus-Turtle.lua
+
+# Modules
+
+# Locales
+Locales\Locale_enUS.lua
