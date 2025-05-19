@@ -1,5 +1,5 @@
 ## Interface: 11200
-## Title: |cffe1e1e1Disenchanter|r |cffed6bffPlus|r |cff9191a1v1.0.9.2|r
+## Title: |cffe1e1e1Disenchanter|r |cffed6bffPlus|r |cff9191a1v0.0.0.1|r
 ## Version: Version 0.0.0.1
 ## Notes: Disenchanter tool for Turtle WoW
 ## Author: osilvay
