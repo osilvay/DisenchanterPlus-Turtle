@@ -12,9 +12,10 @@
   <Script file="Libs\Ace2\AceOO-2.0\AceOO-2.0.lua"/>
   <Script file="Libs\Ace2\AceTab-2.0\AceTab-2.0.lua"/>
   <!-- other -->
-  <Script file="Libs\Compost-2.0\Compost-2.0.lua"/>
   <Script file="Libs\CandyBar-2.1\CandyBar-2.1.lua"/>
+  <Script file="Libs\Compost-2.0\Compost-2.0.lua"/>
   <Script file="Libs\Dewdrop-2.0\Dewdrop-2.0.lua"/>
+  <Script file="Libs\FuBarPlugin-2.0\FuBarPlugin-2.0.lua"/>
   <Script file="Libs\Metrognome-2.0\Metrognome-2.0.lua"/>
   <Script file="Libs\Tablet-2.0\Tablet-2.0.lua"/>
 </Ui>
