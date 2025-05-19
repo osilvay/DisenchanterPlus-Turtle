@@ -1,0 +1,11 @@
+package-as: DisenchanterPlus-Turtle
+manual-changelog: CHANGELOG.md
+ignore:
+  - Doc
+  - Patches
+  - Releases
+  - .gitignore
+  - .version
+  - DisenchanterPlus.toc
+  - packager.bat
+  - packagerExclusions.lst
