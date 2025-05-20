@@ -5,7 +5,7 @@ local L = DisenchanterPlus.L
 
 DisenchanterPlusFu = AceLibrary("AceAddon-2.0"):new("AceDB-2.0", "FuBarPlugin-2.0")
 DisenchanterPlusFu:RegisterDB("DisenchanterPlusDB")
-DisenchanterPlusFu.hasIcon = "Interface\\Addons\\DisenchanterPlus-Turtle\\Images\\MiniMap\\disenchanterplus"
+DisenchanterPlusFu.hasIcon = "Interface\\Addons\\DisenchanterPlus-Turtle\\Images\\MiniMap\\disenchanterplus_disabled"
 DisenchanterPlusFu.defaultMinimapPosition = 180
 DisenchanterPlusFu.cannotDetachTooltip = true
 DisenchanterPlusFu.independentProfile = true
@@ -14,31 +14,11 @@ DisenchanterPlusFu.hideWithoutStandby = true
 local fuMenu = {
 }
 
+function DisenchanterPlusFu:OnClick()
+  _DP_MainWindow.showMainWindow()
+end
+
 function DisenchanterPlusFu:OnMenuRequest(level, value, x, valueN_1, valueN_2, valueN_3, valueN_4)
-  fuMenu = {
-    ["L1"] = {
-      {
-        "text", L["Title"],
-        "isTitle", true
-      },
-      {
-        "text", L["Version"] .. " : " .. DisenchanterPlus.version,
-        "notClickable", true
-      },
-      {},
-      {
-        "text", L["Status"] .. " : " .. DisenchanterPlusFu:GetStatus(),
-        "notClickable", true,
-      },
-      {
-        "text", L["Debug"] .. " : " .. DisenchanterPlusFu:GetDebug(),
-        "notClickable", false,
-        "func", DisenchanterPlusFu.changeDebugMode,
-        "arg1", "toggle",
-        "arg2", "debug"
-      },
-    },
-  }
   DisenchanterPlusFu.updateStatusIcon()
   DisenchanterPlusFu.createDDMenu(level, value, true)
   if (level == 1) then
@@ -51,6 +31,7 @@ end
 ---@param menu string
 ---@param skipfirst boolean
 function DisenchanterPlusFu.createDDMenu(level, menu, skipfirst)
+  fuMenu = DisenchanterPlusFu.getMenu()
   if (level == 1) then
     for k, v in ipairs(fuMenu["L1"]) do
       if (k == 1 and not skipfirst or k > 1) then
@@ -105,4 +86,43 @@ function DisenchanterPlusFu.updateStatusIcon()
     icon = "Interface\\Addons\\DisenchanterPlus-Turtle\\Images\\MiniMap\\disenchanterplus_disabled"
   end
   DisenchanterPlusFu:SetIcon(icon)
+end
+
+---Open main window
+function DisenchanterPlusFu.showMainWindow()
+  DisenchanterPlus:ShowMainWindow()
+end
+
+---Get menu data
+---@return table
+function DisenchanterPlusFu.getMenu()
+  return {
+    ["L1"] = {
+      {
+        "text", "|cffe1e1e1Disenchanter|r|cffed6bffPlus|r |cff7fff7f TurtleWOW|r",
+        "isTitle", true
+      },
+      {
+        "text", L["Version"] .. " : " .. DisenchanterPlus.version,
+        "notClickable", true
+      },
+      {},
+      {
+        "text", L["Status"] .. " : " .. DisenchanterPlusFu:GetStatus(),
+        "notClickable", true,
+      },
+      {
+        "text", L["Debug"] .. " : " .. DisenchanterPlusFu:GetDebug(),
+        "notClickable", false,
+        "func", DisenchanterPlusFu.changeDebugMode,
+        "arg1", "toggle",
+        "arg2", "debug"
+      },
+      --[[{
+        "text", L["Open main window"],
+        "notClickable", false,
+        "func", DisenchanterPlusFu.showMainWindow,
+      },]]
+    },
+  }
 end

@@ -1,0 +1,344 @@
+<Ui xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame name="DisenchanterPlusHeaderFrame" frameStrata="BACKGROUND" enableMouse="true" movable="true" parent="UIParent" hidden="true">
+    <Size>
+      <AbsDimension x="350" y="33"/>
+    </Size>
+    <Anchors>
+      <Anchor point="CENTER"/>
+    </Anchors>
+    <Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+      <BackgroundInsets>
+        <AbsInset left="3" right="4" top="5" bottom="5"/>
+      </BackgroundInsets>
+      <TileSize>
+        <AbsValue val="16"/>
+      </TileSize>
+      <EdgeSize>
+        <AbsValue val="16"/>
+      </EdgeSize>
+    </Backdrop>
+    <Layers>
+      <Layer level="MEDIUM">
+        <FontString name="$parentAddonName" inherits="GameFontNormalLarge" text="|cffc1c1c1Disenchanter Plus|r" justifyH="LEFT" justifyV="CENTER">
+          <Size>
+            <AbsDimension x="200" y="24"/>
+          </Size>
+          <Anchors>
+            <Anchor point="LEFT" relativePoint="LEFT">
+              <Offset>
+                <AbsDimension x="32" y="0"/>
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+    <Frames>
+      <Button name="$parent_Icon" inherits="UIPanelButtonTemplate">
+        <Size>
+          <AbsDimension x="18" y="18"/>
+        </Size>
+        <Anchors>
+          <Anchor point="LEFT" relativePoint="LEFT">
+            <Offset>
+              <AbsDimension x="10" y="0"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            DisenchanterPlus:OpenDropdownMenu()
+          </OnClick>
+        </Scripts>
+        <NormalTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\MiniMap\disenchanterplus_a">
+          <TexCoords left="0.175" top="0.175" right="0.825" bottom="0.825"/>
+        </NormalTexture>
+        <PushedTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\MiniMap\disenchanterplus_a">
+          <TexCoords left="0.175" top="0.175" right="0.825" bottom="0.825"/>
+        </PushedTexture>
+        <HighlightTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\MiniMap\disenchanterplus">
+          <TexCoords left="0.175" top="0.175" right="0.825" bottom="0.825"/>
+        </HighlightTexture>
+      </Button>
+      <Button name="$parent_CloseButton" inherits="UIPanelButtonTemplate">
+        <Size>
+          <AbsDimension x="15" y="15"/>
+        </Size>
+        <Anchors>
+          <Anchor point="RIGHT" relativePoint="RIGHT">
+            <Offset>
+              <AbsDimension x="-8" y="0"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+          _DP_MainWindow.closeMainWindow()
+          </OnClick>
+        </Scripts>
+        <NormalTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\Icons\close_c">
+          <TexCoords left="0.175" top="0.175" right="0.825" bottom="0.825"/>
+        </NormalTexture>
+        <PushedTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\Icons\close_c">
+          <TexCoords left="0.175" top="0.175" right="0.825" bottom="0.825"/>
+        </PushedTexture>
+        <HighlightTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\Icons\close_a">
+          <TexCoords left="0.175" top="0.175" right="0.825" bottom="0.825"/>
+        </HighlightTexture>
+      </Button>
+      <Button name="$parent_PlayButton" inherits="UIPanelButtonTemplate" hidden="true">
+        <Size>
+          <AbsDimension x="15" y="15"/>
+        </Size>
+        <Anchors>
+          <Anchor point="RIGHT" relativePoint="LEFT" relativeTo="$parent_CloseButton">
+            <Offset>
+              <AbsDimension x="-8" y="0"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+          </OnClick>
+        </Scripts>
+        <NormalTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\Icons\play_c">
+          <TexCoords left="0.175" top="0.175" right="0.825" bottom="0.825"/>
+        </NormalTexture>
+        <PushedTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\Icons\play_c">
+          <TexCoords left="0.175" top="0.175" right="0.825" bottom="0.825"/>
+        </PushedTexture>
+        <HighlightTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\Icons\play_a">
+          <TexCoords left="0.175" top="0.175" right="0.825" bottom="0.825"/>
+        </HighlightTexture>
+      </Button>
+      <Button name="$parent_PauseButton" inherits="UIPanelButtonTemplate" hidden="true">
+        <Size>
+          <AbsDimension x="15" y="15"/>
+        </Size>
+        <Anchors>
+          <Anchor point="RIGHT" relativePoint="LEFT" relativeTo="$parent_CloseButton">
+            <Offset>
+              <AbsDimension x="-8" y="0"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+          </OnClick>
+        </Scripts>
+        <NormalTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\Icons\pause_c">
+          <TexCoords left="0.175" top="0.175" right="0.825" bottom="0.825"/>
+        </NormalTexture>
+        <PushedTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\Icons\pause_c">
+          <TexCoords left="0.175" top="0.175" right="0.825" bottom="0.825"/>
+        </PushedTexture>
+        <HighlightTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\Icons\pause_a">
+          <TexCoords left="0.175" top="0.175" right="0.825" bottom="0.825"/>
+        </HighlightTexture>
+      </Button>
+      <Button name="$parent_QualityEpicButton" inherits="UIPanelButtonTemplate" hidden="false">
+        <Size>
+          <AbsDimension x="20" y="20"/>
+        </Size>
+        <Anchors>
+          <Anchor point="RIGHT" relativePoint="LEFT" relativeTo="$parent_CloseButton">
+            <Offset>
+              <AbsDimension x="-31" y="0"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            _DP_MainWindow.toggleEpicButton()
+          </OnClick>
+        </Scripts>
+        <NormalTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\Qualities\epic">
+          <TexCoords left="0.175" top="0.175" right="0.825" bottom="0.825"/>
+        </NormalTexture>
+        <PushedTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\Qualities\epic">
+          <TexCoords left="0.175" top="0.175" right="0.825" bottom="0.825"/>
+        </PushedTexture>
+        <HighlightTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\Qualities\epic_fill">
+          <TexCoords left="0.175" top="0.175" right="0.825" bottom="0.825"/>
+        </HighlightTexture>
+      </Button>
+      <Button name="$parent_QualityRareButton" inherits="UIPanelButtonTemplate" hidden="false">
+        <Size>
+          <AbsDimension x="20" y="20"/>
+        </Size>
+        <Anchors>
+          <Anchor point="RIGHT" relativePoint="LEFT" relativeTo="$parent_QualityEpicButton">
+            <Offset>
+              <AbsDimension x="-4" y="0"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            _DP_MainWindow.toggleRareButton()
+          </OnClick>
+        </Scripts>
+        <NormalTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\Qualities\rare">
+          <TexCoords left="0.175" top="0.175" right="0.825" bottom="0.825"/>
+        </NormalTexture>
+        <PushedTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\Qualities\rare">
+          <TexCoords left="0.175" top="0.175" right="0.825" bottom="0.825"/>
+        </PushedTexture>
+        <HighlightTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\Qualities\rare_fill">
+          <TexCoords left="0.175" top="0.175" right="0.825" bottom="0.825"/>
+        </HighlightTexture>
+      </Button>
+      <Button name="$parent_QualityUncommonButton" inherits="UIPanelButtonTemplate" hidden="false">
+        <Size>
+          <AbsDimension x="20" y="20"/>
+        </Size>
+        <Anchors>
+          <Anchor point="RIGHT" relativePoint="LEFT" relativeTo="$parent_QualityRareButton">
+            <Offset>
+              <AbsDimension x="-4" y="0"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            _DP_MainWindow.toggleUncommonButton()
+          </OnClick>
+        </Scripts>
+        <NormalTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\Qualities\uncommon">
+          <TexCoords left="0.175" top="0.175" right="0.825" bottom="0.825"/>
+        </NormalTexture>
+        <PushedTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\Qualities\uncommon">
+          <TexCoords left="0.175" top="0.175" right="0.825" bottom="0.825"/>
+        </PushedTexture>
+        <HighlightTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\Qualities\uncommon_fill">
+          <TexCoords left="0.175" top="0.175" right="0.825" bottom="0.825"/>
+        </HighlightTexture>
+      </Button>
+    </Frames>
+    <Scripts>
+      <OnLoad>
+        this:SetBackdropColor(0.929, 0.42, 1, 0.9)
+        this:SetBackdropBorderColor(0.929, 0.42, 1, 8)
+      </OnLoad>
+      <OnMouseUp>
+        if ( this.isMoving ) then
+          this:StopMovingOrSizing()
+          this.isMoving = false
+        end
+      </OnMouseUp>
+      <OnMouseDown>
+        if ( ( not this.isLocked ) or ( this.isLocked == 0 ) ) and ( arg1 == "LeftButton" ) then
+          this:StartMoving()
+          this.isMoving = true
+        end
+      </OnMouseDown>
+    </Scripts>
+  </Frame>
+  <Frame name="DisenchanterPlusFrame" frameStrata="BACKGROUND" enableMouse="true" parent="DisenchanterPlusHeaderFrame" hidden="false">
+    <Size>
+      <AbsDimension x="350" y="120"/>
+    </Size>
+    <Anchors>
+      <Anchor point="TOP" relativePoint="BOTTOM" relativeTo="DisenchanterPlusHeaderFrame">
+        <Offset>
+          <AbsDimension x="0" y="6"/>
+        </Offset>
+      </Anchor>
+    </Anchors>
+    <Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+      <BackgroundInsets>
+        <AbsInset left="3" right="4" top="5" bottom="5"/>
+      </BackgroundInsets>
+      <TileSize>
+        <AbsValue val="16"/>
+      </TileSize>
+      <EdgeSize>
+        <AbsValue val="16"/>
+      </EdgeSize>
+    </Backdrop>
+    <Layers>
+      <Layer level="MEDIUM">
+        <FontString name="$parent_Text" inherits="GameFontNormal" justifyH="LEFT" text="|cFF46FF31Item can be disenchanted.|r">
+          <Size>
+            <AbsDimension x="330" y="20"/>
+          </Size>
+          <Anchors>
+            <Anchor point="BOTTOMLEFT">
+              <Offset>
+                <AbsDimension x="20" y="50"/>
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+        <FontString name="$parent_Items" inherits="GameFontNormal" justifyH="LEFT" text="|cffffffffItems left:|r |cFFFFE4312|r">
+          <Size>
+            <AbsDimension x="330" y="20"/>
+          </Size>
+          <Anchors>
+            <Anchor point="TOPLEFT" relativePoint="LEFT" relativeTo="$parent_Text">
+              <Offset>
+                <AbsDimension x="0" y="-6"/>
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+    <Frames>
+      <Button name="$parent_ProceedButton" inherits="UIPanelButtonTemplate" text="Proceed">
+        <Size>
+          <AbsDimension x="80" y="24"/>
+        </Size>
+        <Anchors>
+          <Anchor point="RIGHT" relativeTo="DisenchanterPlusFrame" relativePoint="BOTTOMRIGHT" >
+            <Offset>
+              <AbsDimension x="-10" y="20"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+          </OnClick>
+        </Scripts>
+      </Button>
+      <Button name="$parent_SkipButton" inherits="UIPanelButtonTemplate" text="Skip">
+        <Size>
+          <AbsDimension x="60" y="24"/>
+        </Size>
+        <Anchors>
+          <Anchor point="RIGHT" relativePoint="LEFT" relativeTo="$parent_ProceedButton">
+            <Offset>
+              <AbsDimension x="-8" y="0"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+          </OnClick>
+        </Scripts>
+      </Button>
+      <Button name="$parent_IgnoreButton" inherits="UIPanelButtonTemplate" text="Ignore">
+        <Size>
+          <AbsDimension x="72" y="24"/>
+        </Size>
+        <Anchors>
+          <Anchor point="LEFT" relativeTo="DisenchanterPlusFrame" relativePoint="BOTTOMLEFT" >
+            <Offset>
+              <AbsDimension x="10" y="20"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+          </OnClick>
+        </Scripts>
+      </Button>
+    </Frames>
+    <Scripts>
+      <OnLoad>
+        this:SetBackdropColor(0.4, 0.3, 0.4, 0.9)
+        this:SetBackdropBorderColor(0.929, 0.42, 1, 8)
+      </OnLoad>
+    </Scripts>
+  </Frame>
+</Ui>

@@ -2,7 +2,7 @@ DisenchanterPlus = AceLibrary("AceAddon-2.0"):new("AceEvent-2.0", "AceHook-2.1",
 DisenchanterPlus.L = AceLibrary("AceLocale-2.2"):new("DisenchanterPlus")
 
 DisenchanterPlus.version = "0.0.0.1"
-DisenchanterPlus.addonColor = "ffed6bff"
+DisenchanterPlus.addonColor = "FFED6BFF"
 DisenchanterPlus.errorColor = "FFFC6B6B"
 DisenchanterPlus.warnColor = "FFFFAD6E"
 DisenchanterPlus.infoColor = "FF86C9FC"
@@ -17,7 +17,10 @@ DisenchanterPlus.unknownColor = "FF919191"
 DisenchanterPlus:RegisterDB("DisenchanterPlusDB")
 DisenchanterPlus:RegisterDefaults("profile", {
   debug = "off",
-  status = "stopped"
+  status = "stopped",
+  uncommon = false,
+  rare = false,
+  epic = false,
 })
 
 ---Print
