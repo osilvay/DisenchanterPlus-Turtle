@@ -1,4 +1,5 @@
 <Ui xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.blizzard.com/wow/ui/">
+  <GameTooltip name="DisenchanterPlusTooltip" inherits="GameTooltipTemplate" parent="UIParent" hidden="true" />
   <Frame name="DisenchanterPlusHeaderFrame" frameStrata="BACKGROUND" enableMouse="true" movable="true" parent="UIParent" hidden="true">
     <Size>
       <AbsDimension x="350" y="33"/>
@@ -49,6 +50,15 @@
           <OnClick>
             DisenchanterPlus:OpenDropdownMenu()
           </OnClick>
+          <OnEnter>
+            DisenchanterPlusTooltip:SetOwner(this, "ANCHOR_RIGHT", -(this:GetWidth() / 2), 5)
+            DisenchanterPlusTooltip:ClearLines();
+            DisenchanterPlusTooltip:SetText("Click to open settings"); 
+            DisenchanterPlusTooltip:Show(); 
+          </OnEnter>
+          <OnLeave>
+            DisenchanterPlusTooltip:Hide();
+          </OnLeave>
         </Scripts>
         <NormalTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\MiniMap\disenchanterplus_a">
           <TexCoords left="0.175" top="0.175" right="0.825" bottom="0.825"/>
@@ -75,6 +85,15 @@
           <OnClick>
           _DP_MainWindow.closeMainWindow()
           </OnClick>
+          <OnEnter>
+            DisenchanterPlusTooltip:SetOwner(this, "ANCHOR_LEFT", (this:GetWidth() / 2), 5)
+            DisenchanterPlusTooltip:ClearLines();
+            DisenchanterPlusTooltip:SetText("Close (and pause disenchant process)"); 
+            DisenchanterPlusTooltip:Show(); 
+          </OnEnter>
+          <OnLeave>
+            DisenchanterPlusTooltip:Hide();
+          </OnLeave>
         </Scripts>
         <NormalTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\Icons\close_c">
           <TexCoords left="0.175" top="0.175" right="0.825" bottom="0.825"/>
@@ -99,7 +118,17 @@
         </Anchors>
         <Scripts>
           <OnClick>
+            _DP_MainWindow.startDisenchantProcess()
           </OnClick>
+          <OnEnter>
+            DisenchanterPlusTooltip:SetOwner(this, "ANCHOR_LEFT", (this:GetWidth() / 2), 5)
+            DisenchanterPlusTooltip:ClearLines();
+            DisenchanterPlusTooltip:SetText("Start disenchant process"); 
+            DisenchanterPlusTooltip:Show(); 
+          </OnEnter>
+          <OnLeave>
+            DisenchanterPlusTooltip:Hide();
+          </OnLeave>
         </Scripts>
         <NormalTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\Icons\play_c">
           <TexCoords left="0.175" top="0.175" right="0.825" bottom="0.825"/>
@@ -124,7 +153,17 @@
         </Anchors>
         <Scripts>
           <OnClick>
+            _DP_MainWindow.pauseDisenchantProcess()
           </OnClick>
+          <OnEnter>
+            DisenchanterPlusTooltip:SetOwner(this, "ANCHOR_LEFT", (this:GetWidth() / 2), 5)
+            DisenchanterPlusTooltip:ClearLines();
+            DisenchanterPlusTooltip:SetText("Pause disenchant process"); 
+            DisenchanterPlusTooltip:Show(); 
+          </OnEnter>
+          <OnLeave>
+            DisenchanterPlusTooltip:Hide();
+          </OnLeave>
         </Scripts>
         <NormalTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\Icons\pause_c">
           <TexCoords left="0.175" top="0.175" right="0.825" bottom="0.825"/>
@@ -150,7 +189,14 @@
         <Scripts>
           <OnClick>
             _DP_MainWindow.toggleEpicButton()
+            _DP_MainWindow.showQualityTooltip(DisenchanterPlusTooltip, "epic")
           </OnClick>
+          <OnEnter>
+            _DP_MainWindow.showQualityTooltip(DisenchanterPlusTooltip, "epic")
+          </OnEnter>
+          <OnLeave>
+            DisenchanterPlusTooltip:Hide();
+          </OnLeave>
         </Scripts>
         <NormalTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\Qualities\epic">
           <TexCoords left="0.175" top="0.175" right="0.825" bottom="0.825"/>
@@ -176,7 +222,14 @@
         <Scripts>
           <OnClick>
             _DP_MainWindow.toggleRareButton()
+            _DP_MainWindow.showQualityTooltip(DisenchanterPlusTooltip, "rare")
           </OnClick>
+          <OnEnter>
+            _DP_MainWindow.showQualityTooltip(DisenchanterPlusTooltip, "rare")
+          </OnEnter>
+          <OnLeave>
+            DisenchanterPlusTooltip:Hide();
+          </OnLeave>
         </Scripts>
         <NormalTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\Qualities\rare">
           <TexCoords left="0.175" top="0.175" right="0.825" bottom="0.825"/>
@@ -202,7 +255,14 @@
         <Scripts>
           <OnClick>
             _DP_MainWindow.toggleUncommonButton()
+            _DP_MainWindow.showQualityTooltip(DisenchanterPlusTooltip, "uncommon")
           </OnClick>
+          <OnEnter>
+            _DP_MainWindow.showQualityTooltip(DisenchanterPlusTooltip, "uncommon")
+          </OnEnter>
+          <OnLeave>
+            DisenchanterPlusTooltip:Hide();
+          </OnLeave>
         </Scripts>
         <NormalTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\Qualities\uncommon">
           <TexCoords left="0.175" top="0.175" right="0.825" bottom="0.825"/>
@@ -258,7 +318,7 @@
     </Backdrop>
     <Layers>
       <Layer level="MEDIUM">
-        <FontString name="$parent_Text" inherits="GameFontNormal" justifyH="LEFT" text="|cFF46FF31Item can be disenchanted.|r">
+        <FontString name="$parent_Text" inherits="GameFontNormal" justifyH="LEFT" text="|cFFf1c100Item can be disenchanted.|r">
           <Size>
             <AbsDimension x="330" y="20"/>
           </Size>
@@ -270,9 +330,9 @@
             </Anchor>
           </Anchors>
         </FontString>
-        <FontString name="$parent_Items" inherits="GameFontNormal" justifyH="LEFT" text="|cffffffffItems left:|r |cFFFFE4312|r">
+        <FontString name="$parent_ItemsText" inherits="GameFontNormal" justifyH="LEFT" text="|cffffffffItems left:|r">
           <Size>
-            <AbsDimension x="330" y="20"/>
+            <AbsDimension x="50" y="20"/>
           </Size>
           <Anchors>
             <Anchor point="TOPLEFT" relativePoint="LEFT" relativeTo="$parent_Text">
@@ -282,9 +342,58 @@
             </Anchor>
           </Anchors>
         </FontString>
+        <FontString name="$parent_ItemsLeft" inherits="GameFontNormal" justifyH="LEFT" text="|cff9191910|r">
+          <Size>
+            <AbsDimension x="40" y="20"/>
+          </Size>
+          <Anchors>
+            <Anchor point="LEFT" relativePoint="RIGHT" relativeTo="$parent_ItemsText">
+              <Offset>
+                <AbsDimension x="0" y="0"/>
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+        <FontString name="$parent_ItemName" inherits="GameFontNormalLarge" justifyH="LEFT" text="">
+          <Size>
+            <AbsDimension x="260" y="40"/>
+          </Size>
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="DisenchanterPlusFrame" relativePoint="TOPLEFT" >
+              <Offset>
+                <AbsDimension x="70" y="-11"/>
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
       </Layer>
     </Layers>
     <Frames>
+      <Button name="$parent_ItemButton" inherits="UIPanelButtonTemplate">
+        <Size>
+          <AbsDimension x="40" y="40"/>
+        </Size>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="DisenchanterPlusFrame" relativePoint="TOPLEFT" >
+            <Offset>
+              <AbsDimension x="20" y="-12"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+          </OnClick>
+        </Scripts>
+        <NormalTexture file="Interface\Buttons\UI-EmptySlot-Disabled">
+          <TexCoords left="0.175" top="0.175" right="0.825" bottom="0.825"/>
+        </NormalTexture>
+        <PushedTexture file="Interface\Buttons\UI-EmptySlot-Disabled">
+          <TexCoords left="0.175" top="0.175" right="0.825" bottom="0.825"/>
+        </PushedTexture>
+        <HighlightTexture file="Interface\Buttons\UI-EmptySlot-Disabled">
+          <TexCoords left="0.175" top="0.175" right="0.825" bottom="0.825"/>
+        </HighlightTexture>
+      </Button>
       <Button name="$parent_ProceedButton" inherits="UIPanelButtonTemplate" text="Proceed">
         <Size>
           <AbsDimension x="80" y="24"/>
@@ -299,6 +408,15 @@
         <Scripts>
           <OnClick>
           </OnClick>
+          <OnEnter>
+            DisenchanterPlusTooltip:SetOwner(this, "ANCHOR_LEFT", (this:GetWidth() / 2), 5)
+            DisenchanterPlusTooltip:ClearLines();
+            DisenchanterPlusTooltip:SetText("Proceed"); 
+            DisenchanterPlusTooltip:Show(); 
+          </OnEnter>
+          <OnLeave>
+            DisenchanterPlusTooltip:Hide();
+          </OnLeave>
         </Scripts>
       </Button>
       <Button name="$parent_SkipButton" inherits="UIPanelButtonTemplate" text="Skip">
@@ -315,6 +433,15 @@
         <Scripts>
           <OnClick>
           </OnClick>
+          <OnEnter>
+            DisenchanterPlusTooltip:SetOwner(this, "ANCHOR_LEFT", (this:GetWidth() / 2), 5)
+            DisenchanterPlusTooltip:ClearLines();
+            DisenchanterPlusTooltip:SetText("Skip"); 
+            DisenchanterPlusTooltip:Show(); 
+          </OnEnter>
+          <OnLeave>
+            DisenchanterPlusTooltip:Hide();
+          </OnLeave>
         </Scripts>
       </Button>
       <Button name="$parent_IgnoreButton" inherits="UIPanelButtonTemplate" text="Ignore">
@@ -331,6 +458,15 @@
         <Scripts>
           <OnClick>
           </OnClick>
+          <OnEnter>
+            DisenchanterPlusTooltip:SetOwner(this, "ANCHOR_RIGHT", -(this:GetWidth() / 2), 5)
+            DisenchanterPlusTooltip:ClearLines();
+            DisenchanterPlusTooltip:SetText("Ignore"); 
+            DisenchanterPlusTooltip:Show(); 
+          </OnEnter>
+          <OnLeave>
+            DisenchanterPlusTooltip:Hide();
+          </OnLeave>
         </Scripts>
       </Button>
     </Frames>

@@ -39,7 +39,8 @@ Locales\Locale_enUS.lua
 # Modules
 Init.lua
 FuBarPlugin.lua
-Modules\Timers.lua
 Modules\EventManager.lua
 Modules\Window\MainWindow.lua
 Modules\Window\MainWindow.xml
+Modules\Bags\BagChecker.lua
+Modules\Timers.lua

@@ -9,10 +9,14 @@ DisenchanterPlus.infoColor = "FF86C9FC"
 DisenchanterPlus.debugColor = "FFFFFF67"
 DisenchanterPlus.logColor = "FFC1C1C1"
 DisenchanterPlus.timeColor = "FFB2FC86"
-DisenchanterPlus.onColor = "FF46FF31"
-DisenchanterPlus.offColor = "FFFF3131"
+DisenchanterPlus.onColor = "FF59EE49"
+DisenchanterPlus.offColor = "FFF44444"
 DisenchanterPlus.pausedColor = "FFFFE431"
 DisenchanterPlus.unknownColor = "FF919191"
+
+DISENCHANT_PROCESS_STATUS_RUNNING = "running"
+DISENCHANT_PROCESS_STATUS_PAUSED = "paused"
+DISENCHANT_PROCESS_STATUS_DISABLED = "disabled"
 
 DisenchanterPlus:RegisterDB("DisenchanterPlusDB")
 DisenchanterPlus:RegisterDefaults("profile", {

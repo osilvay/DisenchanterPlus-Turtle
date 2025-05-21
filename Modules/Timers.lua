@@ -8,6 +8,8 @@ local metro = AceLibrary("Metrognome-2.0")
 
 function DP_Timers:Initialize()
   if (not metro:MetroStatus("BagCheckerTimer")) then
-    metro:RegisterMetro("BagCheckerTimer", DisenchanterPlus.CheckBags, 5)
+    metro:RegisterMetro("BagCheckerTimer", DP_BagsChecker.CheckBags, 5)
   end
 end
+
+DP_Timers:Initialize()

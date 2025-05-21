@@ -6,6 +6,6 @@ local L = DisenchanterPlus.L
 function DP_BagsChecker:Initialize()
 end
 
-function DP_BagsChecker:CheckBags()
+function DP_BagsChecker.CheckBags()
   DisenchanterPlus:Debug("timer!")
 end

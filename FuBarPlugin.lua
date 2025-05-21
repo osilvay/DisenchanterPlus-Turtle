@@ -56,13 +56,13 @@ end
 ---Get addon status
 function DisenchanterPlusFu:GetStatus()
   if not DisenchanterPlus.db.profile then return string.format("|c%s%s|r", DisenchanterPlus.unknownColor, "-") end
-  if DisenchanterPlus.db.profile.status == nil then DisenchanterPlus.db.profile.status = "stopped" end
-  if DisenchanterPlus.db.profile.status == "running" then
-    return string.format("|c%s%s|r", DisenchanterPlus.onColor, "running")
-  elseif DisenchanterPlus.db.profile.status == "paused" then
-    return string.format("|c%s%s|r", DisenchanterPlus.pausedColor, "paused")
+  if DisenchanterPlus.db.profile.status == nil then DisenchanterPlus.db.profile.status = DISENCHANT_PROCESS_STATUS_DISABLED end
+  if DisenchanterPlus.db.profile.status == DISENCHANT_PROCESS_STATUS_RUNNING then
+    return string.format("|c%s%s|r", DisenchanterPlus.onColor, DISENCHANT_PROCESS_STATUS_RUNNING)
+  elseif DisenchanterPlus.db.profile.status == DISENCHANT_PROCESS_STATUS_PAUSED then
+    return string.format("|c%s%s|r", DisenchanterPlus.pausedColor, DISENCHANT_PROCESS_STATUS_PAUSED)
   end
-  return string.format("|c%s%s|r", DisenchanterPlus.offColor, "stopped")
+  return string.format("|c%s%s|r", DisenchanterPlus.offColor, DISENCHANT_PROCESS_STATUS_DISABLED)
 end
 
 ---Change debug mode
@@ -77,13 +77,15 @@ end
 
 ---Change status
 function DisenchanterPlusFu.updateStatusIcon()
-  local icon = "Interface\\Addons\\DisenchanterPlus-Turtle\\Images\\MiniMap\\disenchanterplus"
-  if DisenchanterPlus.db.profile.status == "running" then
+  local icon
+  local currentStatus = DisenchanterPlus.db.profile.status or DISENCHANT_PROCESS_STATUS_DISABLED
+  if currentStatus == DISENCHANT_PROCESS_STATUS_RUNNING then
     icon = "Interface\\Addons\\DisenchanterPlus-Turtle\\Images\\MiniMap\\disenchanterplus_running"
-  elseif DisenchanterPlus.db.profile.status == "paused" then
+  elseif currentStatus == DISENCHANT_PROCESS_STATUS_PAUSED then
     icon = "Interface\\Addons\\DisenchanterPlus-Turtle\\Images\\MiniMap\\disenchanterplus_paused"
-  elseif DisenchanterPlus.db.profile.status == "stopped" then
+  else
     icon = "Interface\\Addons\\DisenchanterPlus-Turtle\\Images\\MiniMap\\disenchanterplus_disabled"
+    DisenchanterPlus.db.profile.status = DISENCHANT_PROCESS_STATUS_DISABLED
   end
   DisenchanterPlusFu:SetIcon(icon)
 end
