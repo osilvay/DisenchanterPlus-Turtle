@@ -1,14 +1,15 @@
 if not DisenchanterPlus then return end
 
 local dewdrop = AceLibrary("Dewdrop-2.0")
+local tablet = AceLibrary("Tablet-2.0")
+
 local L = DisenchanterPlus.L
 
 DisenchanterPlusFu = AceLibrary("AceAddon-2.0"):new("AceDB-2.0", "FuBarPlugin-2.0")
 DisenchanterPlusFu:RegisterDB("DisenchanterPlusDB")
 DisenchanterPlusFu.hasIcon = "Interface\\Addons\\DisenchanterPlus-Turtle\\Images\\MiniMap\\disenchanterplus_disabled"
 DisenchanterPlusFu.defaultMinimapPosition = 180
-DisenchanterPlusFu.cannotDetachTooltip = true
-DisenchanterPlusFu.independentProfile = true
+DisenchanterPlusFu.clickableTooltip = true
 DisenchanterPlusFu.hideWithoutStandby = true
 
 local fuMenu = {
@@ -16,6 +17,33 @@ local fuMenu = {
 
 function DisenchanterPlusFu:OnClick()
   _DP_MainWindow.showMainWindow()
+end
+
+function DisenchanterPlusFu:OnTooltipUpdate()
+  tablet:SetTitle("|cffe1e1e1Disenchanter|r|cffed6bffPlus|r |cff919191" .. DisenchanterPlus.version .. "|r")
+  local category = tablet:AddCategory(
+    "columns", 2,
+    "justify", "LEFT",
+    "justify2", "RIGHT",
+    "hideBlankLine", true,
+    "showWithoutChildren", false,
+    "child_textR", 1,
+    "child_textG", 1,
+    "child_textB", 1
+  )
+  category:AddLine()
+  category:AddLine(
+    "text", L["Status"],
+    "text2", DisenchanterPlusFu:GetStatus(),
+    "func", DisenchanterPlusFu.changeStatus
+  )
+  category:AddLine(
+    "text", L["Debug"],
+    "text2", DisenchanterPlusFu:GetDebug(),
+    "func", DisenchanterPlusFu.changeDebugMode
+  )
+
+  tablet:SetHint(L["Click to open the DisenchanterPlus frame."])
 end
 
 function DisenchanterPlusFu:OnMenuRequest(level, value, x, valueN_1, valueN_2, valueN_3, valueN_4)
@@ -75,6 +103,10 @@ function DisenchanterPlusFu.changeDebugMode()
   end
 end
 
+function DisenchanterPlusFu.changeStatus()
+  _DP_MainWindow.togglStatusButton()
+end
+
 ---Change status
 function DisenchanterPlusFu.updateStatusIcon()
   local icon
@@ -95,23 +127,42 @@ function DisenchanterPlusFu.showMainWindow()
   DisenchanterPlus:ShowMainWindow()
 end
 
+function DisenchanterPlusFu:GetUpdateTime()
+  return DisenchanterPlus.db.profile.updateTime or 5
+end
+
+function DisenchanterPlusFu.changeUpdateTime(type, key, value)
+  DisenchanterPlus.db.profile.updateTime = tonumber(value)
+end
+
 ---Get menu data
 ---@return table
 function DisenchanterPlusFu.getMenu()
   return {
     ["L1"] = {
       {
-        "text", "|cffe1e1e1Disenchanter|r|cffed6bffPlus|r |cff7fff7f TurtleWOW|r",
+        "text", "|cffe1e1e1Disenchanter|r|cffed6bffPlus|r|cff919191" .. DisenchanterPlus.version .. "|r",
         "isTitle", true
-      },
-      {
-        "text", L["Version"] .. " : " .. DisenchanterPlus.version,
-        "notClickable", true
       },
       {},
       {
         "text", L["Status"] .. " : " .. DisenchanterPlusFu:GetStatus(),
         "notClickable", true,
+      },
+      {
+        "text", L["Update time"] .. " : (|cFFFFE431" .. DisenchanterPlusFu:GetUpdateTime() .. ")|r",
+        "tooltipTitle", L["Update time"],
+        "tooltipText", L["Update time"],
+        "hasArrow", true,
+        "hasSlider", true,
+        "sliderMin", 0,
+        "sliderMax", 60,
+        "sliderStep", 5,
+        "sliderValue", DisenchanterPlusFu:GetUpdateTime(),
+        "sliderFunc", DisenchanterPlusFu.changeUpdateTime,
+        "sliderArg1", "set",
+        "sliderArg2", "updateTime",
+        "sliderArg3", self.name
       },
       {
         "text", L["Debug"] .. " : " .. DisenchanterPlusFu:GetDebug(),

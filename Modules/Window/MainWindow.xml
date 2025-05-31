@@ -88,7 +88,7 @@
           <OnEnter>
             DisenchanterPlusTooltip:SetOwner(this, "ANCHOR_LEFT", (this:GetWidth() / 2), 5)
             DisenchanterPlusTooltip:ClearLines();
-            DisenchanterPlusTooltip:SetText("Close (and pause disenchant process)"); 
+            DisenchanterPlusTooltip:SetText(_DP_MainWindow.i18n("Close (and pause disenchant process)")); 
             DisenchanterPlusTooltip:Show(); 
           </OnEnter>
           <OnLeave>
@@ -123,7 +123,7 @@
           <OnEnter>
             DisenchanterPlusTooltip:SetOwner(this, "ANCHOR_LEFT", (this:GetWidth() / 2), 5)
             DisenchanterPlusTooltip:ClearLines();
-            DisenchanterPlusTooltip:SetText("Start disenchant process"); 
+            DisenchanterPlusTooltip:SetText(_DP_MainWindow.i18n("Start disenchant process")); 
             DisenchanterPlusTooltip:Show(); 
           </OnEnter>
           <OnLeave>
@@ -158,7 +158,7 @@
           <OnEnter>
             DisenchanterPlusTooltip:SetOwner(this, "ANCHOR_LEFT", (this:GetWidth() / 2), 5)
             DisenchanterPlusTooltip:ClearLines();
-            DisenchanterPlusTooltip:SetText("Pause disenchant process"); 
+            DisenchanterPlusTooltip:SetText(_DP_MainWindow.i18n("Pause disenchant process")); 
             DisenchanterPlusTooltip:Show(); 
           </OnEnter>
           <OnLeave>
@@ -394,7 +394,7 @@
           <TexCoords left="0.175" top="0.175" right="0.825" bottom="0.825"/>
         </HighlightTexture>
       </Button>
-      <Button name="$parent_ProceedButton" inherits="UIPanelButtonTemplate" text="Proceed">
+      <Button name="$parent_ProceedButton" inherits="UIPanelButtonTemplate" text="Proceed" enabled="false">
         <Size>
           <AbsDimension x="80" y="24"/>
         </Size>
@@ -406,6 +406,9 @@
           </Anchor>
         </Anchors>
         <Scripts>
+          <OnLoad>
+            self:Disable()
+          </OnLoad>
           <OnClick>
           </OnClick>
           <OnEnter>
@@ -469,11 +472,106 @@
           </OnLeave>
         </Scripts>
       </Button>
+      <!--<Button name="$parent_IgnoreListButton" inherits="UIPanelButtonTemplate">
+        <Size>
+          <AbsDimension x="15" y="15"/>
+        </Size>
+        <Anchors>
+          <Anchor point="RIGHT" relativePoint="LEFT" relativeTo="$parent_IgnoreButton">
+            <Offset>
+              <AbsDimension x="-8" y="0"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+          </OnClick>
+          <OnEnter>
+            DisenchanterPlusTooltip:SetOwner(this, "ANCHOR_RIGHT", -(this:GetWidth() / 2), 5)
+            DisenchanterPlusTooltip:ClearLines();
+            DisenchanterPlusTooltip:SetText("Ignore list"); 
+            DisenchanterPlusTooltip:Show(); 
+          </OnEnter>
+          <OnLeave>
+            DisenchanterPlusTooltip:Hide();
+          </OnLeave>
+        </Scripts>
+        <NormalTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\Icons\close_c">
+          <TexCoords left="0.175" top="0.175" right="0.825" bottom="0.825"/>
+        </NormalTexture>
+        <PushedTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\Icons\close_c">
+          <TexCoords left="0.175" top="0.175" right="0.825" bottom="0.825"/>
+        </PushedTexture>
+        <HighlightTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\Icons\close_a">
+          <TexCoords left="0.175" top="0.175" right="0.825" bottom="0.825"/>
+        </HighlightTexture>
+      </Button>-->
+      <CheckButton name="$parent_IgnoreListCheckButton" inherits="OptionsCheckButtonTemplate" checked="false">
+        <Size>
+          <AbsDimension x="20" y="20"/>
+        </Size>
+        <Anchors>
+          <Anchor point="LEFT" relativePoint="RIGHT" relativeTo="$parent_IgnoreButton" test="Ignore list">
+            <Offset>
+              <AbsDimension x="8" y="0"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            _DP_MainWindow.toggleIgnoreListCheckButton()
+          </OnClick>
+          <OnEnter>
+            DisenchanterPlusTooltip:SetOwner(this, "ANCHOR_RIGHT", -(this:GetWidth() / 2), 5)
+            DisenchanterPlusTooltip:ClearLines();
+            DisenchanterPlusTooltip:SetText("List of ignored objects"); 
+            DisenchanterPlusTooltip:Show(); 
+          </OnEnter>
+          <OnLeave>
+            DisenchanterPlusTooltip:Hide();
+          </OnLeave>
+        </Scripts>
+      </CheckButton>
     </Frames>
     <Scripts>
       <OnLoad>
         this:SetBackdropColor(0.4, 0.3, 0.4, 0.9)
         this:SetBackdropBorderColor(0.929, 0.42, 1, 8)
+      </OnLoad>
+    </Scripts>
+  </Frame>
+  <Frame name="DisenchanterPlusIgnoreFrame" frameStrata="BACKGROUND" enableMouse="true" parent="DisenchanterPlusFrame" hidden="true">
+    <Size>
+      <AbsDimension x="350" y="240"/>
+    </Size>
+    <Anchors>
+      <Anchor point="TOP" relativePoint="BOTTOM" relativeTo="DisenchanterPlusFrame">
+        <Offset>
+          <AbsDimension x="0" y="6"/>
+        </Offset>
+      </Anchor>
+    </Anchors>
+    <Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+      <BackgroundInsets>
+        <AbsInset left="3" right="4" top="5" bottom="5"/>
+      </BackgroundInsets>
+      <TileSize>
+        <AbsValue val="16"/>
+      </TileSize>
+      <EdgeSize>
+        <AbsValue val="16"/>
+      </EdgeSize>
+    </Backdrop>
+    <Layers>
+      <Layer level="MEDIUM">
+      </Layer>
+    </Layers>
+    <Frames>
+    </Frames>
+    <Scripts>
+      <OnLoad>
+        this:SetBackdropColor(0.4, 0.3, 0.4, 0.9)
+        this:SetBackdropBorderColor(0.929, 0.21, 0, 8)
       </OnLoad>
     </Scripts>
   </Frame>

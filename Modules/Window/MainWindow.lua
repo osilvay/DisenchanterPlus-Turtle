@@ -71,6 +71,16 @@ function _DP_MainWindow.toggleUncommonButton()
   DP_MainWindow:UpdateButtonStatus()
 end
 
+function _DP_MainWindow.toggleIgnoreListCheckButton()
+  if DisenchanterPlusFrame_IgnoreListCheckButton:GetChecked() then
+    PlaySoundFile("Interface\\Addons\\DisenchanterPlus-Turtle\\Sounds\\ChatScrollButton.ogg", "master")
+    DisenchanterPlusIgnoreFrame:Show()
+  else
+    PlaySoundFile("Interface\\Addons\\DisenchanterPlus-Turtle\\Sounds\\TabChange.ogg", "master")
+    DisenchanterPlusIgnoreFrame:Hide()
+  end
+end
+
 ---Check status button
 function DP_MainWindow:CheckStatusButton()
   local currentStatus = DisenchanterPlus.db.profile.status
@@ -92,6 +102,18 @@ function DP_MainWindow:CheckStatusButton()
   DisenchanterPlusFu.updateStatusIcon()
 end
 
+---Toggle rare button
+function _DP_MainWindow.togglStatusButton()
+  local status = DisenchanterPlus.db.profile.status
+  if not status or status == DISENCHANT_PROCESS_STATUS_PAUSED or status == DISENCHANT_PROCESS_STATUS_DISABLED then
+    DisenchanterPlus.db.profile.status = DISENCHANT_PROCESS_STATUS_RUNNING
+    _DP_MainWindow.startDisenchantProcess()
+  elseif status == DISENCHANT_PROCESS_STATUS_RUNNING then
+    DisenchanterPlus.db.profile.status = DISENCHANT_PROCESS_STATUS_PAUSED
+    _DP_MainWindow.pauseDisenchantProcess()
+  end
+end
+
 ---Check quality button
 ---@param frame table
 ---@param status boolean
@@ -108,6 +130,7 @@ end
 ---@param tooltipFrame table
 ---@param type string
 function _DP_MainWindow.showQualityTooltip(tooltipFrame, type)
+  if not L then return end
   tooltipFrame:SetOwner(this, "ANCHOR_LEFT", (this:GetWidth() / 2), 5)
   tooltipFrame:ClearLines();
   local typeString, status, statusString
@@ -129,7 +152,7 @@ function _DP_MainWindow.showQualityTooltip(tooltipFrame, type)
     statusString = "|c" .. DisenchanterPlus.offColor .. "off|r"
   end
 
-  tooltipFrame:SetText(string.format("Filter by %s : %s", typeString, statusString))
+  tooltipFrame:SetText(string.format(L["Scan %s : %s"], typeString, statusString))
   tooltipFrame:Show();
 end
 
@@ -139,7 +162,7 @@ function _DP_MainWindow.startDisenchantProcess()
   if currentStatus ~= DISENCHANT_PROCESS_STATUS_RUNNING then
     DisenchanterPlus.db.profile.status = DISENCHANT_PROCESS_STATUS_RUNNING
   end
-  PlaySoundFile("Interface\\Addons\\DisenchanterPlus-Turtle\\Sounds\\TabChange.ogg", "master")
+  PlaySoundFile("Interface\\Addons\\DisenchanterPlus-Turtle\\Sounds\\ChatScrollButton.ogg", "master")
   DP_MainWindow:CheckStatusButton()
   --_DP_MainWindow.closeMainWindow()
 end
@@ -164,4 +187,8 @@ function _DP_MainWindow.disableDisenchantProcess()
   PlaySoundFile("Interface\\Addons\\DisenchanterPlus-Turtle\\Sounds\\TabChange.ogg", "master")
   DP_MainWindow:CheckStatusButton()
   _DP_MainWindow.closeMainWindow()
+end
+
+function _DP_MainWindow.i18n(message)
+  return L[message]
 end

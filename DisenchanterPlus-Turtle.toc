@@ -43,4 +43,5 @@ Modules\EventManager.lua
 Modules\Window\MainWindow.lua
 Modules\Window\MainWindow.xml
 Modules\Bags\BagChecker.lua
+Modules\Items\ItemInfo.lua
 Modules\Timers.lua
