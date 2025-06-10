@@ -4,6 +4,9 @@ local DP_EventManager = DP_ModuleLoader:CreateModule("DP_EventManager")
 ---@type DP_BagsChecker
 local DP_BagsChecker = DP_ModuleLoader:ImportModule("DP_BagsChecker")
 
+---@type DP_Timers
+local DP_Timers = DP_ModuleLoader:ImportModule("DP_Timers")
+
 function DP_EventManager.Initialize()
   DP_Debug("Event manager initialized")
   DisenchanterPlusFu.updateStatusIcon()
@@ -14,7 +17,9 @@ function DP_EventManager.Initialize()
   DisenchanterPlus:RegisterEvent("LOOT_SLOT_CLEARED", DP_EventManager.LootSlotCleared)
   DisenchanterPlus:RegisterEvent("BAG_UPDATE", DP_EventManager.BagUpdate)
 
-  DP_BagsChecker:GetItemFromBags()
+  local interval = tonumber(DisenchanterPlus.db.profile.updateTime) or 60
+  DP_Timers:Register("DisenchanterPlusProcessTimer", interval, true, nil)
+  --DP_BagsChecker:GetItemFromBags()
 end
 
 DP_Target = {}

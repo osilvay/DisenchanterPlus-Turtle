@@ -17,6 +17,7 @@ DisenchanterPlus.unknownColor = "FF919191"
 DISENCHANT_PROCESS_STATUS_RUNNING = "running"
 DISENCHANT_PROCESS_STATUS_PAUSED = "paused"
 DISENCHANT_PROCESS_STATUS_DISABLED = "disabled"
+DISENCHANT_PROCESS_STATUS_PROCESSING = "processing"
 
 DisenchanterPlus:RegisterDB("DisenchanterPlusDB")
 DisenchanterPlus:RegisterDefaults("profile", {

@@ -2,6 +2,9 @@
 local DP_MainWindow = DP_ModuleLoader:CreateModule("DP_MainWindow")
 _DP_MainWindow = {}
 
+---@type DP_DisenchanterProcess
+local DP_DisenchanterProcess = DP_ModuleLoader:ImportModule("DP_DisenchanterProcess")
+
 local L = DisenchanterPlus.L
 local QUALITY_TEXTURE_SELECTED = "Interface\\AddOns\\DisenchanterPlus-Turtle\\Images\\Qualities\\%s_selected"
 local QUALITY_TEXTURE_NORMAL = "Interface\\AddOns\\DisenchanterPlus-Turtle\\Images\\Qualities\\%s"
@@ -71,6 +74,7 @@ function _DP_MainWindow.toggleUncommonButton()
   DP_MainWindow:UpdateButtonStatus()
 end
 
+---Toggle ignore list
 function _DP_MainWindow.toggleIgnoreListCheckButton()
   if DisenchanterPlusFrame_IgnoreListCheckButton:GetChecked() then
     PlaySoundFile("Interface\\Addons\\DisenchanterPlus-Turtle\\Sounds\\ChatScrollButton.ogg", "master")
@@ -164,6 +168,7 @@ function _DP_MainWindow.startDisenchantProcess()
   end
   PlaySoundFile("Interface\\Addons\\DisenchanterPlus-Turtle\\Sounds\\ChatScrollButton.ogg", "master")
   DP_MainWindow:CheckStatusButton()
+  DP_DisenchanterProcess.Process()
   --_DP_MainWindow.closeMainWindow()
 end
 

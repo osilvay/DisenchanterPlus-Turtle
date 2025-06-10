@@ -42,6 +42,9 @@ FuBarPlugin.lua
 Modules\EventManager.lua
 Modules\Window\MainWindow.lua
 Modules\Window\MainWindow.xml
+
+Modules\Common\CommonFuncions.lua
 Modules\Bags\BagChecker.lua
 Modules\Items\ItemInfo.lua
+Modules\Process\DisenchanterProcess.lua
 Modules\Timers.lua

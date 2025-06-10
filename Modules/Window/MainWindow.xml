@@ -277,8 +277,8 @@
     </Frames>
     <Scripts>
       <OnLoad>
-        this:SetBackdropColor(0.929, 0.42, 1, 0.9)
-        this:SetBackdropBorderColor(0.929, 0.42, 1, 8)
+        this:SetBackdropColor(0.91, 0.41, 1, 0.9)
+        this:SetBackdropBorderColor(0.91, 0.41, 1, 0.8)
       </OnLoad>
       <OnMouseUp>
         if ( this.isMoving ) then
@@ -407,7 +407,7 @@
         </Anchors>
         <Scripts>
           <OnLoad>
-            self:Disable()
+            DisenchanterPlusFrame_ProceedButton:Disable()
           </OnLoad>
           <OnClick>
           </OnClick>
@@ -434,6 +434,9 @@
           </Anchor>
         </Anchors>
         <Scripts>
+          <OnLoad>
+            DisenchanterPlusFrame_SkipButton:Disable()
+          </OnLoad>
           <OnClick>
           </OnClick>
           <OnEnter>
@@ -459,6 +462,9 @@
           </Anchor>
         </Anchors>
         <Scripts>
+          <OnLoad>
+            DisenchanterPlusFrame_IgnoreButton:Disable()
+          </OnLoad>
           <OnClick>
           </OnClick>
           <OnEnter>
@@ -506,7 +512,7 @@
           <TexCoords left="0.175" top="0.175" right="0.825" bottom="0.825"/>
         </HighlightTexture>
       </Button>-->
-      <CheckButton name="$parent_IgnoreListCheckButton" inherits="OptionsCheckButtonTemplate" checked="false">
+      <CheckButton name="$parent_IgnoreListCheckButton" inherits="OptionsCheckButtonTemplate" text="Ignored items" checked="false">
         <Size>
           <AbsDimension x="20" y="20"/>
         </Size>
@@ -535,8 +541,8 @@
     </Frames>
     <Scripts>
       <OnLoad>
-        this:SetBackdropColor(0.4, 0.3, 0.4, 0.9)
-        this:SetBackdropBorderColor(0.929, 0.42, 1, 8)
+        this:SetBackdropColor(0.41, 0.31, 0.41, 0.9)
+        this:SetBackdropBorderColor(0.91, 0.41, 1, 1)
       </OnLoad>
     </Scripts>
   </Frame>
@@ -570,8 +576,8 @@
     </Frames>
     <Scripts>
       <OnLoad>
-        this:SetBackdropColor(0.4, 0.3, 0.4, 0.9)
-        this:SetBackdropBorderColor(0.929, 0.21, 0, 8)
+        this:SetBackdropColor(0.31, 0.21, 0.31, 0.9)
+        this:SetBackdropBorderColor(0.91, 0.21, 0, 1)
       </OnLoad>
     </Scripts>
   </Frame>
