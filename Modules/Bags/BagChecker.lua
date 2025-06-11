@@ -45,7 +45,8 @@ function DP_BagsChecker:GetItemFromBags()
           return nil, 0
         end
         if (itemInfo.type == 'Armor' or itemInfo.type == 'Weapon') and
-            DP_CommonFunctions:TableHasValue(qualitiesToTest, itemInfo.quality) then
+            DP_CommonFunctions:TableHasValue(qualitiesToTest, itemInfo.quality) and
+            not DP_BagsChecker:CheckItemIsIgnored(itemId) then
           -- filter by quality
           DP_Debug(string.format("|c%s%s|r = %s", ItemQualityColors[itemInfo.quality or 0], itemInfo.name,
             tostring(itemInfo.quality)))
@@ -53,7 +54,7 @@ function DP_BagsChecker:GetItemFromBags()
 
           if itemToDisenchant == nil then
             itemToDisenchant = {
-              id = itemInfo.id,
+              id = itemId,
               texture = itemInfo.texture,
               name = itemInfo.name,
               quality = itemInfo.quality,
@@ -68,4 +69,17 @@ function DP_BagsChecker:GetItemFromBags()
     end
   end
   return itemToDisenchant, totalNumItems
+end
+
+---Check item is ignored
+---@param itemId number
+---@return boolean
+function DP_BagsChecker:CheckItemIsIgnored(itemId)
+  local temporalIgnoredItems = DisenchanterPlus.db.profile.temporalIgnoredItems or {}
+  local permanentIgnoredItems = DisenchanterPlus.db.profile.permanentIgnoredItems or {}
+  if DP_CommonFunctions:TableHasKey(temporalIgnoredItems, tostring(itemId)) or
+      DP_CommonFunctions:TableHasKey(permanentIgnoredItems, tostring(itemId)) then
+    return true
+  end
+  return false
 end

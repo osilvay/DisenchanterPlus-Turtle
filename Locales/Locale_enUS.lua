@@ -17,6 +17,8 @@ L:RegisterTranslations("enUS", function()
     ["Close (and pause disenchant process)"]      = true,
     ["Click to open the DisenchanterPlus frame."] = true,
     ["Update time"]                               = true,
+    ["Item can be disenchanted."]                 = true,
+    ["Waiting an item to disenchant..."]          = true,
   }
 end)
 

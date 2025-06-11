@@ -13,3 +13,16 @@ function DP_CommonFunctions:TableHasValue(table, value)
   end
   return false
 end
+
+---Check if table contains key
+---@param table table
+---@param key any
+---@return boolean
+function DP_CommonFunctions:TableHasKey(table, key)
+  for k, _ in pairs(table) do
+    if k == key then
+      return true
+    end
+  end
+  return false
+end

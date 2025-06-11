@@ -19,7 +19,11 @@ function DP_EventManager.Initialize()
 
   local interval = tonumber(DisenchanterPlus.db.profile.updateTime) or 60
   DP_Timers:Register("DisenchanterPlusProcessTimer", interval, true, nil)
-  --DP_BagsChecker:GetItemFromBags()
+
+  DisenchanterPlus.db.profile.temporalIgnoredItems = {}
+  if DisenchanterPlus.db.profile.permanentIgnoredItems == nil then
+    DisenchanterPlus.db.profile.permanentIgnoredItems = {}
+  end
 end
 
 DP_Target = {}
@@ -49,7 +53,8 @@ function DP_EventManager:PlayerTargetChanged()
       level = level,
       class = className,
     }
-    DP_Debug("Target changed: |c" .. difficultColor .. level .. "|r |cffb5d0de" .. name .. "|r |c" .. classColor .. className .. "|r")
+    DP_Debug("Target changed: |c" ..
+      difficultColor .. level .. "|r |cffb5d0de" .. name .. "|r |c" .. classColor .. className .. "|r")
   end
 end
 
