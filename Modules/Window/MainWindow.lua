@@ -18,6 +18,7 @@ function _DP_MainWindow.closeMainWindow()
   DisenchanterPlusHeaderFrame:Hide()
 end
 
+---Close main window
 function DP_MainWindow:CloseMainWindow()
   if DisenchanterPlusHeaderFrame:IsShown() then
     DP_MainWindow:ToggleIgnoreButton(false)
@@ -26,7 +27,7 @@ function DP_MainWindow:CloseMainWindow()
     DP_DisenchanterProcess.RemoveItemToProcess()
 
     DP_MainWindow:UpdateItemRemaining(0)
-    DP_MainWindow:UpdateDisenchantText(string.format("|c%s%s|r", DisenchanterPlus.errorColor,
+    DP_MainWindow:UpdateDisenchantText(string.format("|c%s%s|r", DisenchanterPlus.warnColor,
       L["Waiting an item to disenchant..."]))
 
     DisenchanterPlusItemFrame_Texture:SetTexture("")
@@ -34,6 +35,21 @@ function DP_MainWindow:CloseMainWindow()
 
     _DP_MainWindow.closeMainWindow()
   end
+end
+
+---Withoout skill learned
+function DP_MainWindow:WithoutSkillLearned()
+  DP_MainWindow:ToggleIgnoreButton(false)
+  DP_MainWindow:ToggleSkipButton(false)
+  DP_MainWindow:ToggleProceedButton(false)
+  DP_DisenchanterProcess.RemoveItemToProcess()
+
+  DP_MainWindow:UpdateItemRemaining(0)
+  DP_MainWindow:UpdateDisenchantText(string.format("|c%s%s|r", DisenchanterPlus.errorColor,
+    L["You do not have the Disenchant skill."]))
+
+  DisenchanterPlusItemFrame_Texture:SetTexture("")
+  DisenchanterPlusFrame_ItemName:SetText("")
 end
 
 ---Show main window

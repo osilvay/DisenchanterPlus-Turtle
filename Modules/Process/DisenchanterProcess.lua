@@ -19,6 +19,14 @@ function DP_DisenchanterProcess.Process()
   local status = DisenchanterPlus.db.profile.status
   if not status or status == DISENCHANT_PROCESS_STATUS_PAUSED or status == DISENCHANT_PROCESS_STATUS_DISABLED then return end
 
+  DP_Debug(tostring(DP_DisenchanterProcess:SpellNameLearned("Disenchanting")))
+  if not DP_DisenchanterProcess:SpellNameLearned("Disenchanting") then
+    DP_MainWindow:WithoutSkillLearned()
+    DP_MainWindow:ShowMainWindow()
+    DP_Timers:Stop(_DP_EventManager.ProcessTimer)
+    return
+  end
+
   if processing then
     --DP_Debug("Already processing")
     return
