@@ -55,13 +55,16 @@ function DP_BagsChecker:GetItemFromBags()
           if itemToDisenchant == nil then
             itemToDisenchant = {
               id = itemId,
+              itemLink = itemLink,
               texture = itemInfo.texture,
               name = itemInfo.name,
               quality = itemInfo.quality,
               minLevel = itemInfo.minLevel,
               type = itemInfo.type,
               subtype = itemInfo.subtype,
-              equipLocation = itemInfo.equipLocation
+              equipLocation = itemInfo.equipLocation,
+              bagIndex = bagIndex,
+              slot = slot
             }
           end
         end

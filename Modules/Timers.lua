@@ -31,15 +31,23 @@ function DP_Timers:Start(metroToStart, executions)
   metro:Start(metroToStart, executions)
 end
 
+---Stoping metro
+---@param metroToStop string
+function DP_Timers:Stop(metroToStop)
+  DP_Debug(string.format("Stoping metro: %s", metroToStop))
+  metro:Stop(metroToStop)
+end
+
 ---Register metro
 ---@param metroToRegister string
 ---@param interval number
 ---@param autostart boolean
 ---@param executions number|nil
-function DP_Timers:Register(metroToRegister, interval, autostart, executions)
+---@param fn function
+function DP_Timers:Register(metroToRegister, interval, autostart, executions, fn)
   if (not metro:MetroStatus(metroToRegister)) then
     DP_Debug(string.format("Registering metro: %s each %s seconds", metroToRegister, tostring(interval)))
-    metro:RegisterMetro(metroToRegister, DP_DisenchanterProcess.Process, interval)
+    metro:RegisterMetro(metroToRegister, fn, interval)
   end
   if autostart then
     DP_Timers:Start(metroToRegister, executions)

@@ -387,6 +387,7 @@
             DisenchanterPlusFrame_ProceedButton:Disable()
           </OnLoad>
           <OnClick>
+            _DP_MainWindow.proceedWithDisenchant()
           </OnClick>
           <OnEnter>
             DisenchanterPlusTooltip:SetOwner(this, "ANCHOR_LEFT", (this:GetWidth() / 2), 5)

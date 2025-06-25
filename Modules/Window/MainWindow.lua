@@ -367,3 +367,10 @@ function _DP_MainWindow.removeItemFromTemporalIgnored()
     DP_MainWindow:RemoveItemFromTemporalIgnored(itemToProcess)
   end
 end
+
+function _DP_MainWindow.proceedWithDisenchant()
+  local itemToProcess = DP_DisenchanterProcess.GetItemToProcess()
+  if itemToProcess ~= nil then
+    DP_DisenchanterProcess:ProceedWithDisenchant()
+  end
+end

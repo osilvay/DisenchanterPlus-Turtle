@@ -1,11 +1,18 @@
 ---@class DP_EventManager
 local DP_EventManager = DP_ModuleLoader:CreateModule("DP_EventManager")
+_DP_EventManager = {}
 
 ---@type DP_BagsChecker
 local DP_BagsChecker = DP_ModuleLoader:ImportModule("DP_BagsChecker")
 
 ---@type DP_Timers
 local DP_Timers = DP_ModuleLoader:ImportModule("DP_Timers")
+
+---@type DP_DisenchanterProcess
+local DP_DisenchanterProcess = DP_ModuleLoader:ImportModule("DP_DisenchanterProcess")
+
+_DP_EventManager.ProcessTimer = "DisenchanterPlusProcessTimer"
+_DP_EventManager.DisenchantTimer = "DisenchanterPlusDisenchantTimer"
 
 function DP_EventManager.Initialize()
   DP_Debug("Event manager initialized")
@@ -18,12 +25,14 @@ function DP_EventManager.Initialize()
   DisenchanterPlus:RegisterEvent("BAG_UPDATE", DP_EventManager.BagUpdate)
 
   local interval = tonumber(DisenchanterPlus.db.profile.updateTime) or 60
-  DP_Timers:Register("DisenchanterPlusProcessTimer", interval, true, nil)
+  DP_Timers:Register(_DP_EventManager.ProcessTimer, interval, true, nil, DP_DisenchanterProcess.Process)
+  DP_Timers:Register(_DP_EventManager.DisenchantTimer, 3.8, false, 1, DP_DisenchanterProcess.Disenchanted)
 
   DisenchanterPlus.db.profile.temporalIgnoredItems = {}
   if DisenchanterPlus.db.profile.permanentIgnoredItems == nil then
     DisenchanterPlus.db.profile.permanentIgnoredItems = {}
   end
+  DisenchanterPlus.db.profile.permanentIgnoredItems = {} -- de momento siempre
 end
 
 DP_Target = {}
