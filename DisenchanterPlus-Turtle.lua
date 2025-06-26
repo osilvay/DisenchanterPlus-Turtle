@@ -27,7 +27,7 @@ DisenchanterPlus:RegisterDefaults("profile", {
   uncommon = false,
   rare = false,
   epic = false,
-  updateTime = 5,
+  updateTime = 4,
   temporalIgnoredItems = {},
   permanentIgnoredItems = {}
 })

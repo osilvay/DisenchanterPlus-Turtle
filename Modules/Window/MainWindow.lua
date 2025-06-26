@@ -8,6 +8,9 @@ local DP_DisenchanterProcess = DP_ModuleLoader:ImportModule("DP_DisenchanterProc
 ---@type DP_CommonFunctions
 local DP_CommonFunctions = DP_ModuleLoader:ImportModule("DP_CommonFunctions")
 
+---@type DP_Timers
+local DP_Timers = DP_ModuleLoader:ImportModule("DP_Timers")
+
 local L = DisenchanterPlus.L
 local QUALITY_TEXTURE_SELECTED = "Interface\\AddOns\\DisenchanterPlus-Turtle\\Images\\Qualities\\%s_selected"
 local QUALITY_TEXTURE_NORMAL = "Interface\\AddOns\\DisenchanterPlus-Turtle\\Images\\Qualities\\%s"
@@ -50,6 +53,26 @@ function DP_MainWindow:WithoutSkillLearned()
 
   DisenchanterPlusItemFrame_Texture:SetTexture("")
   DisenchanterPlusFrame_ItemName:SetText("")
+end
+
+---Player is moving
+---@param isMoving boolean
+function _DP_MainWindow.playerIsMoving(isMoving)
+  if not DP_DisenchanterProcess.DisenchantInProgress() then return end
+  DP_Timers:Stop(_DP_EventManager.DisenchantTimer)
+  if isMoving then
+    DP_MainWindow:ToggleIgnoreButton(false)
+    DP_MainWindow:ToggleSkipButton(false)
+    DP_MainWindow:ToggleProceedButton(false)
+    DP_MainWindow:UpdateDisenchantText(string.format("|c%s%s|r", DisenchanterPlus.warnColor,
+      L["You cannot disenchant while moving."]))
+  else
+    DP_MainWindow:ToggleIgnoreButton(true)
+    DP_MainWindow:ToggleSkipButton(true)
+    DP_MainWindow:ToggleProceedButton(true)
+    DP_MainWindow:UpdateDisenchantText(string.format("|c%s%s|r", DisenchanterPlus.onColor, L
+      ["Item can be disenchanted."]))
+  end
 end
 
 ---Show main window
@@ -389,4 +412,24 @@ function _DP_MainWindow.proceedWithDisenchant()
   if itemToProcess ~= nil then
     DP_DisenchanterProcess:ProceedWithDisenchant()
   end
+end
+
+local lastX, lastY = 0, 0
+local isMoving = false
+function _DP_MainWindow.isMoving()
+  local x, y = GetPlayerMapPosition("player")
+  if x ~= lastX or y ~= lastY then
+    if not isMoving then
+      isMoving = true
+      DP_Debug("Moving")
+      _DP_MainWindow.playerIsMoving(true)
+    end
+  else
+    if isMoving then
+      isMoving = false
+      DP_Debug("Stopped")
+      _DP_MainWindow.playerIsMoving(false)
+    end
+  end
+  lastX, lastY = x, y
 end

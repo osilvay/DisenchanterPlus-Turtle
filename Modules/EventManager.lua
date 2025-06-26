@@ -13,6 +13,7 @@ local DP_DisenchanterProcess = DP_ModuleLoader:ImportModule("DP_DisenchanterProc
 
 _DP_EventManager.ProcessTimer = "DisenchanterPlusProcessTimer"
 _DP_EventManager.DisenchantTimer = "DisenchanterPlusDisenchantTimer"
+_DP_EventManager.IsMovingTimer = "DisenchanterPlusIsMovingTimer"
 
 function DP_EventManager.Initialize()
   DP_Debug("Event manager initialized")
@@ -27,6 +28,7 @@ function DP_EventManager.Initialize()
   local interval = tonumber(DisenchanterPlus.db.profile.updateTime) or 60
   DP_Timers:Register(_DP_EventManager.ProcessTimer, interval, true, nil, DP_DisenchanterProcess.Process)
   DP_Timers:Register(_DP_EventManager.DisenchantTimer, 3.8, false, 1, DP_DisenchanterProcess.Disenchanted)
+  DP_Timers:Register(_DP_EventManager.IsMovingTimer, 0.2, false, nil, _DP_MainWindow.isMoving)
 
   DisenchanterPlus.db.profile.temporalIgnoredItems = {}
   if DisenchanterPlus.db.profile.permanentIgnoredItems == nil then
@@ -76,5 +78,6 @@ end
 function DP_EventManager:LootSlotCleared()
 end
 
-function DP_EventManager:BagUpdate()
+function DP_EventManager:BagUpdate(event, bagID)
+  DP_DisenchanterProcess.Process()
 end

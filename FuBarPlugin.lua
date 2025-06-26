@@ -1,5 +1,8 @@
 if not DisenchanterPlus then return end
 
+---@type DP_Timers
+local DP_Timers = DP_ModuleLoader:ImportModule("DP_Timers")
+
 local dewdrop = AceLibrary("Dewdrop-2.0")
 local tablet = AceLibrary("Tablet-2.0")
 
@@ -133,6 +136,8 @@ end
 
 function DisenchanterPlusFu.changeUpdateTime(type, key, value)
   DisenchanterPlus.db.profile.updateTime = tonumber(value)
+  DP_Timers:Stop(_DP_EventManager.ProcessTimer)
+  DP_Timers:Start(_DP_EventManager.ProcessTimer)
 end
 
 ---Get menu data
@@ -155,9 +160,9 @@ function DisenchanterPlusFu.getMenu()
         "tooltipText", L["Update time"],
         "hasArrow", true,
         "hasSlider", true,
-        "sliderMin", 0,
-        "sliderMax", 60,
-        "sliderStep", 5,
+        "sliderMin", 2,
+        "sliderMax", 10,
+        "sliderStep", 1,
         "sliderValue", DisenchanterPlusFu:GetUpdateTime(),
         "sliderFunc", DisenchanterPlusFu.changeUpdateTime,
         "sliderArg1", "set",

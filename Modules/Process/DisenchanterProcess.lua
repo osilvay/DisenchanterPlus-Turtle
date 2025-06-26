@@ -19,8 +19,7 @@ function DP_DisenchanterProcess.Process()
   local status = DisenchanterPlus.db.profile.status
   if not status or status == DISENCHANT_PROCESS_STATUS_PAUSED or status == DISENCHANT_PROCESS_STATUS_DISABLED then return end
 
-  DP_Debug(tostring(DP_DisenchanterProcess:SpellNameLearned("Disenchanting")))
-  if not DP_DisenchanterProcess:SpellNameLearned("Disenchanting") then
+  if not DP_DisenchanterProcess:SpellNameLearned("Disenchant") then
     DP_MainWindow:WithoutSkillLearned()
     DP_MainWindow:ShowMainWindow()
     DP_Timers:Stop(_DP_EventManager.ProcessTimer)
@@ -32,6 +31,7 @@ function DP_DisenchanterProcess.Process()
     return
   end
   DP_Timers:Stop(_DP_EventManager.ProcessTimer)
+  DP_Timers:Start(_DP_EventManager.IsMovingTimer)
 
   DP_Debug("Process... : " .. status)
   local itemToDisenchant, totalNumItems = DP_BagsChecker.GetBagItemProcess()
@@ -108,4 +108,11 @@ function DP_DisenchanterProcess.Disenchanted()
   DP_Debug("Disenchanted...")
   DP_MainWindow:CloseMainWindow()
   DP_Timers:Start(_DP_EventManager.ProcessTimer)
+  DP_Timers:Stop(_DP_EventManager.IsMovingTimer)
+end
+
+---Disenchant in process
+---@return boolean
+function DP_DisenchanterProcess.DisenchantInProgress()
+  return processing
 end

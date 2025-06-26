@@ -20,7 +20,8 @@ L:RegisterTranslations("enUS", function()
     ["Item can be disenchanted."]                 = true,
     ["Waiting an item to disenchant..."]          = true,
     ["You do not have the Disenchant skill."]     = true,
-
+    ["You cannot disenchant while moving."]       = true,
+    ["Ignore list"]                               = true,
   }
 end)
 

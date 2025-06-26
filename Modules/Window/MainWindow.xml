@@ -458,10 +458,8 @@
           </OnLeave>
         </Scripts>
       </Button>
-      <CheckButton name="$parent_IgnoreListCheckButton" inherits="OptionsCheckButtonTemplate" text="Ignored items" checked="false">
-        <Size>
-          <AbsDimension x="20" y="20"/>
-        </Size>
+      <CheckButton name="$parent_IgnoreListCheckButton" inherits="OptionsCheckButtonTemplate" checked="false">
+        <Size x="20" y="20"/>
         <Anchors>
           <Anchor point="LEFT" relativePoint="RIGHT" relativeTo="$parent_IgnoreButton" test="Ignore list">
             <Offset>
@@ -469,7 +467,19 @@
             </Offset>
           </Anchor>
         </Anchors>
+        <Layers>
+          <Layer level="OVERLAY">
+            <FontString name="$parent_IgnoreListCheckButtonText" inherits="GameFontNormal">
+              <Anchors>
+                <Anchor point="LEFT" relativeTo="$parent_IgnoreListCheckButton" relativePoint="RIGHT" x="72" y="0"/>
+              </Anchors>
+            </FontString>
+          </Layer>
+        </Layers>
         <Scripts>
+          <OnLoad>
+            DisenchanterPlusFrame_IgnoreListCheckButtonText:SetText(" ".._DP_MainWindow.i18n("Ignore list"))
+          </OnLoad>
           <OnClick>
             _DP_MainWindow.toggleIgnoreListCheckButton()
           </OnClick>
