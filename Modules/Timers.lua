@@ -1,5 +1,6 @@
 ---@class DP_Timers
 local DP_Timers = DP_ModuleLoader:CreateModule("DP_Timers")
+_DP_Timers = {}
 
 ---@type DP_EventManager
 local DP_EventManager = DP_ModuleLoader:ImportModule("DP_EventManager")
@@ -25,16 +26,16 @@ end
 ---@param executions number|nil
 function DP_Timers:Start(metroToStart, executions)
   if executions ~= nil then
-    DP_Debug(string.format("Starting metro: %s with %s executions", metroToStart, tostring(executions)))
+    --DP_Debug(string.format("Starting metro: %s with %s executions", metroToStart, tostring(executions)))
   end
-  DP_Debug(string.format("Starting metro: %s", metroToStart))
+  --DP_Debug(string.format("Starting metro: %s", metroToStart))
   metro:Start(metroToStart, executions)
 end
 
 ---Stoping metro
 ---@param metroToStop string
 function DP_Timers:Stop(metroToStop)
-  DP_Debug(string.format("Stoping metro: %s", metroToStop))
+  --DP_Debug(string.format("Stoping metro: %s", metroToStop))
   metro:Stop(metroToStop)
 end
 
@@ -46,12 +47,30 @@ end
 ---@param fn function
 function DP_Timers:Register(metroToRegister, interval, autostart, executions, fn)
   if (not metro:MetroStatus(metroToRegister)) then
-    DP_Debug(string.format("Registering metro: %s each %s seconds", metroToRegister, tostring(interval)))
+    --DP_Debug(string.format("Registering metro: %s each %s seconds", metroToRegister, tostring(interval)))
     metro:RegisterMetro(metroToRegister, fn, interval)
   end
-  if autostart then
+  if autostart and executions ~= nil then
     DP_Timers:Start(metroToRegister, executions)
+  elseif autostart and executions == nil then
+    DP_Timers:Start(metroToRegister)
   end
 end
 
+---Metro status
+---@param registeredMetro string
+function DP_Timers:Status(registeredMetro)
+  local registered, rate, running, limit, elapsed = metro:Status(registeredMetro)
+  DP_Debug("registered = " .. tostring(registered))
+  DP_Debug("rate = " .. tostring(rate))
+  DP_Debug("running = " .. tostring(running))
+  DP_Debug("limit = " .. tostring(limit))
+  DP_Debug("elapsed = " .. tostring(elapsed))
+end
+
+function _DP_Timers.Status(registeredMetro)
+  DP_Timers:Status(registeredMetro)
+end
+
+--_DP_Timers.Status(_DP_EventManager.ProcessTimer)
 DP_Timers:Initialize()

@@ -1,6 +1,6 @@
 ## Interface: 11200
-## Title: |cffe1e1e1Disenchanter|r|cffed6bffPlus|r |cff7fff7f TurtleWOW|r |cff9191a1v0.0.0.1|r
-## Version: Version 0.0.0.1
+## Title: |cffe1e1e1Disenchanter|r|cffed6bffPlus|r |cff7fff7f TurtleWOW|r |cff9191a1v0.0.1|r
+## Version: Version 0.0.1
 ## Notes: Disenchanter tool for Turtle WoW
 ## Author: osilvay
 ## SavedVariables: DisenchanterPlusDB
@@ -31,6 +31,7 @@ Libs\Tablet-2.0\Tablet-2.0.lua
 
 # Core
 DisenchanterPlus-Turtle.lua
+Database.lua
 ModuleLoader.lua
 
 # Locales

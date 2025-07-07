@@ -27,11 +27,11 @@ end
 function DP_BagsChecker:GetItemFromBags()
   local itemToDisenchant = nil
   local totalNumItems = 0
-  local qualitiesToTest = {
-  }
-  if DisenchanterPlus.db.profile.uncommon then table.insert(qualitiesToTest, 2) end
-  if DisenchanterPlus.db.profile.rare then table.insert(qualitiesToTest, 3) end
-  if DisenchanterPlus.db.profile.uncommon then table.insert(qualitiesToTest, 4) end
+  local qualitiesToTest = {}
+
+  if _AP_Database.GetCharValue("epic") then table.insert(qualitiesToTest, 4) end
+  if _AP_Database.GetCharValue("rare") then table.insert(qualitiesToTest, 3) end
+  if _AP_Database.GetCharValue("uncommon") then table.insert(qualitiesToTest, 2) end
 
   for bagIndex = 0, 4 do
     local numSlots = GetContainerNumSlots(bagIndex)
@@ -44,12 +44,12 @@ function DP_BagsChecker:GetItemFromBags()
         if itemInfo == nil then
           return nil, 0
         end
+        --DP_Debug(string.format("|c%s%s|r = %s", ItemQualityColors[itemInfo.quality or 0], itemInfo.name, tostring(itemInfo.quality)))
         if (itemInfo.type == 'Armor' or itemInfo.type == 'Weapon') and
             DP_CommonFunctions:TableHasValue(qualitiesToTest, itemInfo.quality) and
             not DP_BagsChecker:CheckItemIsIgnored(itemId) then
           -- filter by quality
-          DP_Debug(string.format("|c%s%s|r = %s", ItemQualityColors[itemInfo.quality or 0], itemInfo.name,
-            tostring(itemInfo.quality)))
+
           totalNumItems = totalNumItems + 1
 
           if itemToDisenchant == nil then
@@ -78,8 +78,8 @@ end
 ---@param itemId number
 ---@return boolean
 function DP_BagsChecker:CheckItemIsIgnored(itemId)
-  local temporalIgnoredItems = DisenchanterPlus.db.profile.temporalIgnoredItems or {}
-  local permanentIgnoredItems = DisenchanterPlus.db.profile.permanentIgnoredItems or {}
+  local temporalIgnoredItems = _AP_Database.SetCharValue("temporalIgnoredItems") or {}
+  local permanentIgnoredItems = _AP_Database.GetCharValue("permanentIgnoredItems") or {}
   if DP_CommonFunctions:TableHasKey(temporalIgnoredItems, tostring(itemId)) or
       DP_CommonFunctions:TableHasKey(permanentIgnoredItems, tostring(itemId)) then
     return true

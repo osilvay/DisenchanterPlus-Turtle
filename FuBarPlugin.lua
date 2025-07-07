@@ -24,6 +24,9 @@ end
 
 function DisenchanterPlusFu:OnTooltipUpdate()
   tablet:SetTitle("|cffe1e1e1Disenchanter|r|cffed6bffPlus|r |cff919191" .. DisenchanterPlus.version .. "|r")
+  tablet:SetTitle(DisenchanterPlus.addonColoredName .. " " .. string.format("|c%s%s|r", DisenchanterPlus.versionColor,
+    DisenchanterPlus.addonVersion .. "|r"))
+
   local category = tablet:AddCategory(
     "columns", 2,
     "justify", "LEFT",
@@ -76,9 +79,9 @@ end
 
 ---Get addon status
 function DisenchanterPlusFu:GetDebug()
-  if not DisenchanterPlus.db.profile then return string.format("|c%s%s|r", DisenchanterPlus.unknownColor, "-") end
-  if DisenchanterPlus.db.profile.debug == nil then DisenchanterPlus.db.profile.debug = "off" end
-  if DisenchanterPlus.db.profile.debug == "on" then
+  --if not DisenchanterPlus.db.char then return string.format("|c%s%s|r", DisenchanterPlus.unknownColor, "-") end
+  if _AP_Database.GetCharValue("debug") == nil then _AP_Database.SetCharValue("debug", "off") end
+  if _AP_Database.GetCharValue("debug") == "on" then
     return string.format("|c%s%s|r", DisenchanterPlus.onColor, "on")
   end
   return string.format("|c%s%s|r", DisenchanterPlus.offColor, "off")
@@ -86,11 +89,11 @@ end
 
 ---Get addon status
 function DisenchanterPlusFu:GetStatus()
-  if not DisenchanterPlus.db.profile then return string.format("|c%s%s|r", DisenchanterPlus.unknownColor, "-") end
-  if DisenchanterPlus.db.profile.status == nil then DisenchanterPlus.db.profile.status = DISENCHANT_PROCESS_STATUS_DISABLED end
-  if DisenchanterPlus.db.profile.status == DISENCHANT_PROCESS_STATUS_RUNNING then
+  --if not DisenchanterPlus.db.char then return string.format("|c%s%s|r", DisenchanterPlus.unknownColor, "-") end
+  if _AP_Database.GetCharValue("status") == nil then _AP_Database.SetCharValue("status", DISENCHANT_PROCESS_STATUS_DISABLED) end
+  if _AP_Database.GetCharValue("status") == DISENCHANT_PROCESS_STATUS_RUNNING then
     return string.format("|c%s%s|r", DisenchanterPlus.onColor, DISENCHANT_PROCESS_STATUS_RUNNING)
-  elseif DisenchanterPlus.db.profile.status == DISENCHANT_PROCESS_STATUS_PAUSED then
+  elseif _AP_Database.GetCharValue("status") == DISENCHANT_PROCESS_STATUS_PAUSED then
     return string.format("|c%s%s|r", DisenchanterPlus.pausedColor, DISENCHANT_PROCESS_STATUS_PAUSED)
   end
   return string.format("|c%s%s|r", DisenchanterPlus.offColor, DISENCHANT_PROCESS_STATUS_DISABLED)
@@ -98,11 +101,11 @@ end
 
 ---Change debug mode
 function DisenchanterPlusFu.changeDebugMode()
-  if not DisenchanterPlus.db.profile then return end
-  if DisenchanterPlus.db.profile.debug == nil or DisenchanterPlus.db.profile.debug == "on" then
-    DisenchanterPlus.db.profile.debug = "off"
-  elseif DisenchanterPlus.db.profile.debug == "off" then
-    DisenchanterPlus.db.profile.debug = "on"
+  --if not DisenchanterPlus.db.char then return end
+  if _AP_Database.GetCharValue("debug") == nil or _AP_Database.GetCharValue("debug") == "on" then
+    _AP_Database.SetCharValue("debug", "off")
+  elseif _AP_Database.GetCharValue("debug") == "off" then
+    _AP_Database.SetCharValue("debug", "on")
   end
 end
 
@@ -113,14 +116,14 @@ end
 ---Change status
 function DisenchanterPlusFu.updateStatusIcon()
   local icon
-  local currentStatus = DisenchanterPlus.db.profile.status or DISENCHANT_PROCESS_STATUS_DISABLED
+  local currentStatus = _AP_Database.GetCharValue("status") or DISENCHANT_PROCESS_STATUS_DISABLED
   if currentStatus == DISENCHANT_PROCESS_STATUS_RUNNING then
     icon = "Interface\\Addons\\DisenchanterPlus-Turtle\\Images\\MiniMap\\disenchanterplus_running"
   elseif currentStatus == DISENCHANT_PROCESS_STATUS_PAUSED then
     icon = "Interface\\Addons\\DisenchanterPlus-Turtle\\Images\\MiniMap\\disenchanterplus_paused"
   else
     icon = "Interface\\Addons\\DisenchanterPlus-Turtle\\Images\\MiniMap\\disenchanterplus_disabled"
-    DisenchanterPlus.db.profile.status = DISENCHANT_PROCESS_STATUS_DISABLED
+    _AP_Database.SetCharValue("status", DISENCHANT_PROCESS_STATUS_DISABLED)
   end
   DisenchanterPlusFu:SetIcon(icon)
 end
@@ -131,11 +134,11 @@ function DisenchanterPlusFu.showMainWindow()
 end
 
 function DisenchanterPlusFu:GetUpdateTime()
-  return DisenchanterPlus.db.profile.updateTime or 5
+  return _AP_Database.GetCharValue("updateTime") or 5
 end
 
 function DisenchanterPlusFu.changeUpdateTime(type, key, value)
-  DisenchanterPlus.db.profile.updateTime = tonumber(value)
+  _AP_Database.SetCharValue("updateTime", tonumber(value))
   DP_Timers:Stop(_DP_EventManager.ProcessTimer)
   DP_Timers:Start(_DP_EventManager.ProcessTimer)
 end
@@ -160,7 +163,7 @@ function DisenchanterPlusFu.getMenu()
         "tooltipText", L["Update time"],
         "hasArrow", true,
         "hasSlider", true,
-        "sliderMin", 2,
+        "sliderMin", 1,
         "sliderMax", 10,
         "sliderStep", 1,
         "sliderValue", DisenchanterPlusFu:GetUpdateTime(),

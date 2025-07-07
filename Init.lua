@@ -26,7 +26,7 @@ local options = {
       name = "debug",
       desc = L["Enable/Disable debug"],
       get = function()
-        local debug = DisenchanterPlus.db.profile.debug
+        local debug = _AP_Database.GetCharValue("debug")
         if debug == "on" then
           return "|c" .. DisenchanterPlus.onColor .. debug .. "|r"
         else
@@ -34,7 +34,7 @@ local options = {
         end
       end,
       set = function(v)
-        DisenchanterPlus.db.profile.debug = v
+        _AP_Database.SetCharValue("debug", v)
       end,
       validate = { "off", "on" },
       order = -2,

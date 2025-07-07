@@ -94,9 +94,9 @@ end
 
 ---Update button status
 function DP_MainWindow:UpdateButtonStatus()
-  local epic_status = DisenchanterPlus.db.profile.epic or false
-  local rare_status = DisenchanterPlus.db.profile.rare or false
-  local uncommon_status = DisenchanterPlus.db.profile.uncommon or false
+  local epic_status = _AP_Database.GetCharValue("epic") or false
+  local rare_status = _AP_Database.GetCharValue("rare") or false
+  local uncommon_status = _AP_Database.GetCharValue("uncommon") or false
 
   DP_MainWindow:CheckStatusButton()
   DP_MainWindow:CheckQualityButton(DisenchanterPlusHeaderFrame_QualityEpicButton, epic_status, "epic")
@@ -106,38 +106,41 @@ end
 
 ---Toggle epic button
 function _DP_MainWindow.toggleEpicButton()
-  local status = DisenchanterPlus.db.profile.epic
+  local status = _AP_Database.GetCharValue("epic")
   if not status or status == false then
-    DisenchanterPlus.db.profile.epic = true
+    _AP_Database.SetCharValue("epic", true)
   else
-    DisenchanterPlus.db.profile.epic = false
+    _AP_Database.SetCharValue("epic", false)
   end
   PlaySoundFile("Interface\\Addons\\DisenchanterPlus-Turtle\\Sounds\\ChatScrollButton.ogg", "master")
   DP_MainWindow:UpdateButtonStatus()
+  DP_DisenchanterProcess.Process()
 end
 
 ---Toggle rare button
 function _DP_MainWindow.toggleRareButton()
-  local status = DisenchanterPlus.db.profile.rare
+  local status = _AP_Database.GetCharValue("rare")
   if not status or status == false then
-    DisenchanterPlus.db.profile.rare = true
+    _AP_Database.SetCharValue("rare", true)
   else
-    DisenchanterPlus.db.profile.rare = false
+    _AP_Database.SetCharValue("rare", false)
   end
   PlaySoundFile("Interface\\Addons\\DisenchanterPlus-Turtle\\Sounds\\ChatScrollButton.ogg", "master")
   DP_MainWindow:UpdateButtonStatus()
+  DP_DisenchanterProcess.Process()
 end
 
 ---Toggle uncommon button
 function _DP_MainWindow.toggleUncommonButton()
-  local status = DisenchanterPlus.db.profile.uncommon
+  local status = _AP_Database.GetCharValue("uncommon")
   if not status or status == false then
-    DisenchanterPlus.db.profile.uncommon = true
+    _AP_Database.SetCharValue("uncommon", true)
   else
-    DisenchanterPlus.db.profile.uncommon = false
+    _AP_Database.SetCharValue("uncommon", false)
   end
   PlaySoundFile("Interface\\Addons\\DisenchanterPlus-Turtle\\Sounds\\ChatScrollButton.ogg", "master")
   DP_MainWindow:UpdateButtonStatus()
+  DP_DisenchanterProcess.Process()
 end
 
 ---Toggle ignore list
@@ -153,12 +156,12 @@ end
 
 ---Check status button
 function DP_MainWindow:CheckStatusButton()
-  local currentStatus = DisenchanterPlus.db.profile.status
+  local currentStatus = _AP_Database.GetCharValue("status")
   if currentStatus == nil or (currentStatus ~= DISENCHANT_PROCESS_STATUS_RUNNING and
         currentStatus ~= DISENCHANT_PROCESS_STATUS_PAUSED and
         currentStatus ~= DISENCHANT_PROCESS_STATUS_DISABLED) then
     currentStatus = DISENCHANT_PROCESS_STATUS_DISABLED
-    DisenchanterPlus.db.profile.status = currentStatus
+    _AP_Database.SetCharValue("status", currentStatus)
   end
 
   if currentStatus == DISENCHANT_PROCESS_STATUS_RUNNING then
@@ -174,12 +177,12 @@ end
 
 ---Toggle rare button
 function _DP_MainWindow.togglStatusButton()
-  local status = DisenchanterPlus.db.profile.status
+  local status = _AP_Database.GetCharValue("status")
   if not status or status == DISENCHANT_PROCESS_STATUS_PAUSED or status == DISENCHANT_PROCESS_STATUS_DISABLED then
-    DisenchanterPlus.db.profile.status = DISENCHANT_PROCESS_STATUS_RUNNING
+    _AP_Database.SetCharValue("status", DISENCHANT_PROCESS_STATUS_RUNNING)
     _DP_MainWindow.startDisenchantProcess()
   elseif status == DISENCHANT_PROCESS_STATUS_RUNNING then
-    DisenchanterPlus.db.profile.status = DISENCHANT_PROCESS_STATUS_PAUSED
+    _AP_Database.SetCharValue("status", DISENCHANT_PROCESS_STATUS_PAUSED)
     _DP_MainWindow.pauseDisenchantProcess()
   end
 end
@@ -207,13 +210,13 @@ function _DP_MainWindow.showQualityTooltip(tooltipFrame, type)
 
   if type == "epic" then
     typeString = "|cffa335eeepic|r"
-    status = DisenchanterPlus.db.profile.epic or false
+    status = _AP_Database.GetCharValue("epic") or false
   elseif type == "rare" then
     typeString = "|cff0070ddrare|r"
-    status = DisenchanterPlus.db.profile.rare or false
+    status = _AP_Database.GetCharValue("rare") or false
   elseif type == "uncommon" then
     typeString = "|cff1eff00uncommon|r"
-    status = DisenchanterPlus.db.profile.uncommon or false
+    status = _AP_Database.GetCharValue("uncommon") or false
   end
 
   if status then
@@ -228,9 +231,9 @@ end
 
 ---Start disenchant process
 function _DP_MainWindow.startDisenchantProcess()
-  local currentStatus = DisenchanterPlus.db.profile.status
+  local currentStatus = _AP_Database.GetCharValue("status")
   if currentStatus ~= DISENCHANT_PROCESS_STATUS_RUNNING then
-    DisenchanterPlus.db.profile.status = DISENCHANT_PROCESS_STATUS_RUNNING
+    _AP_Database.SetCharValue("status", DISENCHANT_PROCESS_STATUS_RUNNING)
   end
   PlaySoundFile("Interface\\Addons\\DisenchanterPlus-Turtle\\Sounds\\ChatScrollButton.ogg", "master")
   DP_MainWindow:CheckStatusButton()
@@ -240,9 +243,9 @@ end
 
 ---Pause disenchant process
 function _DP_MainWindow.pauseDisenchantProcess()
-  local currentStatus = DisenchanterPlus.db.profile.status
+  local currentStatus = _AP_Database.GetCharValue("status")
   if currentStatus ~= DISENCHANT_PROCESS_STATUS_PAUSED then
-    DisenchanterPlus.db.profile.status = DISENCHANT_PROCESS_STATUS_PAUSED
+    _AP_Database.SetCharValue("status", DISENCHANT_PROCESS_STATUS_PAUSED)
   end
   PlaySoundFile("Interface\\Addons\\DisenchanterPlus-Turtle\\Sounds\\TabChange.ogg", "master")
   DP_MainWindow:CheckStatusButton()
@@ -251,9 +254,9 @@ end
 
 ---Disable disenchant process
 function _DP_MainWindow.disableDisenchantProcess()
-  local currentStatus = DisenchanterPlus.db.profile.status
+  local currentStatus = _AP_Database.GetCharValue("status")
   if currentStatus ~= DISENCHANT_PROCESS_STATUS_DISABLED then
-    DisenchanterPlus.db.profile.status = DISENCHANT_PROCESS_STATUS_DISABLED
+    _AP_Database.SetCharValue("status", DISENCHANT_PROCESS_STATUS_DISABLED)
   end
   PlaySoundFile("Interface\\Addons\\DisenchanterPlus-Turtle\\Sounds\\TabChange.ogg", "master")
   DP_MainWindow:CheckStatusButton()
@@ -327,13 +330,13 @@ end
 ---add item to permanent ignored
 ---@param itemToIgnore table
 function DP_MainWindow:AddItemToPermanentIgnored(itemToIgnore)
-  local ignoredList = DisenchanterPlus.db.profile.permanentIgnoredItems or {}
+  local ignoredList = _AP_Database.GetCharValue("permanentIgnoredItems") or {}
   local s = "|c%s%s|r"
   local qualityColor = ItemQualityColors[itemToIgnore.quality or 0]
   local name = itemToIgnore.name
   ignoredList[tostring(itemToIgnore.id)] = string.format(s, qualityColor, name)
 
-  DisenchanterPlus.db.profile.permanentIgnoredItems = ignoredList
+  _AP_Database.SetCharValue("permanentIgnoredItems", ignoredList)
   DP_MainWindow:CloseMainWindow()
 end
 
@@ -347,7 +350,7 @@ end
 ---remove item to permanent ignored
 ---@param itemToIgnore table
 function DP_MainWindow:RemoveItemFromPermanentIgnored(itemToIgnore)
-  local ignoredList = DisenchanterPlus.db.profile.permanentIgnoredItems or {}
+  local ignoredList = _AP_Database.GetCharValue("permanentIgnoredItems") or {}
   local itemId = itemToIgnore.id
   local newIgnoredList = {}
   for key, value in pairs(ignoredList) do
@@ -355,7 +358,7 @@ function DP_MainWindow:RemoveItemFromPermanentIgnored(itemToIgnore)
       newIgnoredList[key] = value
     end
   end
-  DisenchanterPlus.db.profile.permanentIgnoredItems = newIgnoredList
+  _AP_Database.SetCharValue("permanentIgnoredItems", newIgnoredList)
 end
 
 function _DP_MainWindow.removeItemFromPermanentIgnored()
@@ -368,14 +371,14 @@ end
 ---add item to temporal ignored
 ---@param itemToIgnore table
 function DP_MainWindow:AddItemToTemporalIgnored(itemToIgnore)
-  local ignoredList = DisenchanterPlus.db.profile.temporalIgnoredItems or {}
+  local ignoredList = _AP_Database.GetCharValue("temporalIgnoredItems") or {}
   local s = "|c%s%s|r"
   local qualityColor = ItemQualityColors[itemToIgnore.quality or 0]
   local name = itemToIgnore.name
   local id = itemToIgnore.id
   ignoredList[tostring(itemToIgnore.id)] = string.format(s, qualityColor, name)
 
-  DisenchanterPlus.db.profile.temporalIgnoredItems = ignoredList
+  _AP_Database.SetCharValue("temporalIgnoredItems", ignoredList)
   DP_MainWindow:CloseMainWindow()
 end
 
@@ -389,7 +392,7 @@ end
 ---remove item to temporal ignored
 ---@param itemToIgnore table
 function DP_MainWindow:RemoveItemFromTemporalIgnored(itemToIgnore)
-  local ignoredList = DisenchanterPlus.db.profile.temporalIgnoredItems or {}
+  local ignoredList = _AP_Database.GetCharValue("temporalIgnoredItems") or {}
   local itemId = itemToIgnore.id
   local newIgnoredList = {}
   for key, value in pairs(ignoredList) do
@@ -397,7 +400,7 @@ function DP_MainWindow:RemoveItemFromTemporalIgnored(itemToIgnore)
       newIgnoredList[key] = value
     end
   end
-  DisenchanterPlus.db.profile.temporalIgnoredItems = newIgnoredList
+  _AP_Database.SetCharValue("temporalIgnoredItems", newIgnoredList)
 end
 
 function _DP_MainWindow.removeItemFromTemporalIgnored()

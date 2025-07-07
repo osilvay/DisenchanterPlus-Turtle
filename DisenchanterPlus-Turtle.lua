@@ -2,26 +2,12 @@ DisenchanterPlus = AceLibrary("AceAddon-2.0"):new("AceEvent-2.0", "AceHook-2.1",
   "AceModuleCore-2.0", "AceDebug-2.0", "Metrognome-2.0")
 DisenchanterPlus.L = AceLibrary("AceLocale-2.2"):new("DisenchanterPlus")
 
-DisenchanterPlus.version = "0.0.0.1"
-DisenchanterPlus.addonColor = "FFED6BFF"
-DisenchanterPlus.errorColor = "FFFC6B6B"
-DisenchanterPlus.warnColor = "FFFFAD6E"
-DisenchanterPlus.infoColor = "FF86C9FC"
-DisenchanterPlus.debugColor = "FFFFFF67"
-DisenchanterPlus.logColor = "FFC1C1C1"
-DisenchanterPlus.timeColor = "FFB2FC86"
-DisenchanterPlus.onColor = "FF59EE49"
-DisenchanterPlus.offColor = "FFF44444"
-DisenchanterPlus.pausedColor = "FFFFE431"
-DisenchanterPlus.unknownColor = "FF919191"
-
-DISENCHANT_PROCESS_STATUS_RUNNING = "running"
-DISENCHANT_PROCESS_STATUS_PAUSED = "paused"
-DISENCHANT_PROCESS_STATUS_DISABLED = "disabled"
-DISENCHANT_PROCESS_STATUS_PROCESSING = "processing"
-
-DisenchanterPlus:RegisterDB("DisenchanterPlusDB")
-DisenchanterPlus:RegisterDefaults("profile", {
+local defaults_realm = {
+  chars = {},
+  global = {},
+  version = nil
+}
+local defaults_char = {
   debug = "off",
   status = "stopped",
   uncommon = false,
@@ -30,7 +16,75 @@ DisenchanterPlus:RegisterDefaults("profile", {
   updateTime = 4,
   temporalIgnoredItems = {},
   permanentIgnoredItems = {}
-})
+}
+DISENCHANT_PROCESS_STATUS_RUNNING = "running"
+DISENCHANT_PROCESS_STATUS_PAUSED = "paused"
+DISENCHANT_PROCESS_STATUS_DISABLED = "disabled"
+DISENCHANT_PROCESS_STATUS_PROCESSING = "processing"
+
+---On intinialize
+function DisenchanterPlus:OnInitialize()
+  self:RegisterDB("DisenchanterPlusDB")
+
+  self.errorColor = "FFFC6B6B"
+  self.warnColor = "FFFFAD6E"
+  self.infoColor = "FF86C9FC"
+  self.debugColor = "FFFFFF67"
+  self.logColor = "FFC1C1C1"
+  self.timeColor = "FFB2FC86"
+  self.onColor = "FF59EE49"
+  self.offColor = "FFF44444"
+  self.pausedColor = "FFFFE431"
+  self.unknownColor = "FF919191"
+  self.versionColor = "FF619191"
+  self.textColor = "FFe1e1e1"
+  self.addonColor = "FFED6BFF"
+  self.addonName = "DisenchanterPlus"
+  self.addonVersion = "0.0.1"
+  self.addonColoredName = string.format("|c%sDisenchanter|r |c%sPlus|r", self.textColor, self.addonColor)
+
+  local realmName = GetRealmName()
+  local name = UnitName("player")
+  local className, classFilename, classId = UnitClass("player")
+  local raceName = UnitRace("player")
+  local level = UnitLevel("player")
+  local factionName = UnitFactionGroup("player")
+  local locale = GetLocale()
+  local charKey = name .. " of " .. realmName
+  local realmKey = realmName .. " - " .. factionName
+  local info = {
+    realmName = realmName,
+    name = name,
+    level = level,
+    className = className,
+    classFilename = classFilename,
+    classId = classId,
+    raceName = raceName,
+    factionName = factionName,
+    locale = locale,
+    characterKey = charKey,
+    realmKey = realmKey
+  }
+  self.info = info
+
+  if not DisenchanterPlusDB["realms"] then
+    DisenchanterPlusDB["realms"] = {}
+  end
+  if not DisenchanterPlusDB["realms"][realmKey] then
+    DisenchanterPlusDB["realms"][realmKey] = defaults_realm
+  end
+
+  if not DisenchanterPlusDB["chars"] then
+    DisenchanterPlusDB["chars"] = {}
+  end
+  if not DisenchanterPlusDB["chars"][charKey] then
+    DisenchanterPlusDB["chars"][charKey] = defaults_char
+  end
+
+  DisenchanterPlusDB["realms"][realmKey]["version"] = self.addonVersion
+  DisenchanterPlusDB["realms"][realmKey]["chars"][charKey] = true
+  DisenchanterPlusDB["chars"][charKey].info = info
+end
 
 ---Print
 ---@param message string
@@ -38,12 +92,16 @@ DisenchanterPlus:RegisterDefaults("profile", {
 function DisenchanterPlus:Print(message, withoutHeader)
   local finalMessage
   if withoutHeader then
-    finalMessage = string.format("%s", message)
+    finalMessage = string.format("%s", tostring(message))
   else
-    finalMessage = string.format("|c%sDP|r: %s", DisenchanterPlus.addonColor, message or "nil")
+    finalMessage = string.format("|c%sDP|r: %s", DisenchanterPlus.addonColor, tostring(message) or "nil")
   end
 
   DEFAULT_CHAT_FRAME:AddMessage(finalMessage)
+end
+
+function print(message)
+  DP_Print(message)
 end
 
 function DP_Print(message)
@@ -52,7 +110,7 @@ end
 
 ---Error message
 function DisenchanterPlus:Error(message)
-  DisenchanterPlus:Print(string.format("|c%s[ERROR]|r %s", DisenchanterPlus.errorColor, message))
+  DisenchanterPlus:Print(string.format("|c%s[ERROR]|r %s", DisenchanterPlus.errorColor, tostring(message)))
 end
 
 function DP_Error(message)
@@ -62,7 +120,7 @@ end
 ---Warning message
 function DisenchanterPlus:Warning(message)
   if DisenchanterPlus:IsDebugEnabled() then
-    DisenchanterPlus:Print(string.format("|c%s[WARNING]|r %s", DisenchanterPlus.errorColor, message))
+    DisenchanterPlus:Print(string.format("|c%s[WARNING]|r %s", DisenchanterPlus.errorColor, tostring(message)))
   end
 end
 
@@ -73,7 +131,7 @@ end
 ---Info message
 function DisenchanterPlus:Info(message)
   if DisenchanterPlus:IsDebugEnabled() then
-    DisenchanterPlus:Print(string.format("|c%s[INFO]|r %s", DisenchanterPlus.errorColor, message))
+    DisenchanterPlus:Print(string.format("|c%s[INFO]|r %s", DisenchanterPlus.errorColor, tostring(message)))
   end
 end
 
@@ -85,7 +143,7 @@ end
 function DisenchanterPlus:Debug(message)
   if DisenchanterPlus:IsDebugEnabled() then
     if message == nil then message = 'nil' end
-    DisenchanterPlus:Print(string.format("|c%s[DEBUG]|r %s", DisenchanterPlus.errorColor, message))
+    DisenchanterPlus:Print(string.format("|c%s[DEBUG]|r %s", DisenchanterPlus.errorColor, tostring(message)))
   end
 end
 
@@ -151,7 +209,7 @@ end
 
 ---Check debug enabled
 function DisenchanterPlus:IsDebugEnabled()
-  if DisenchanterPlus.db.profile.debug == "on" then
+  if _AP_Database.GetCharValue("debug") == "on" then
     return true
   end
   return false
