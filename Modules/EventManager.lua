@@ -16,7 +16,9 @@ _DP_EventManager.DisenchantTimer = "DisenchanterPlusDisenchantTimer"
 _DP_EventManager.IsMovingTimer = "DisenchanterPlusIsMovingTimer"
 
 function DP_EventManager.Initialize()
-  DP_Debug("Event manager initialized")
+  DP_Print("DP_EventManager.Initialize")
+
+  DP_EventManager:DatabaseSetup()
   DisenchanterPlusFu.updateStatusIcon()
 
   DisenchanterPlus:RegisterEvent("LOOT_OPENED", DP_EventManager.LootOpened)
@@ -47,4 +49,49 @@ end
 
 function DP_EventManager:BagUpdate(event, bagID)
   DP_DisenchanterProcess.Process()
+end
+
+function DP_EventManager:DatabaseSetup()
+  --DP_Print("DP_EventManager:DatabaseSetup")
+  local realmName = GetRealmName()
+  local name = UnitName("player")
+  local className, classFilename, classId = UnitClass("player")
+  local raceName = UnitRace("player")
+  local level = UnitLevel("player")
+  local factionName = UnitFactionGroup("player")
+  local locale = GetLocale()
+  local charKey = name .. " of " .. realmName
+  local realmKey = realmName .. " - " .. factionName
+  local info = {
+    realmName = realmName,
+    name = name,
+    level = level,
+    className = className,
+    classFilename = classFilename,
+    classId = classId,
+    raceName = raceName,
+    factionName = factionName,
+    locale = locale,
+    characterKey = charKey,
+    realmKey = realmKey
+  }
+  DisenchanterPlus.info = info
+
+  if not DisenchanterPlusDB["realms"] then
+    DisenchanterPlusDB["realms"] = {}
+  end
+  if not DisenchanterPlusDB["realms"][realmKey] then
+    DisenchanterPlusDB["realms"][realmKey] = defaults_realm
+  end
+
+  if not DisenchanterPlusDB["chars"] then
+    DisenchanterPlusDB["chars"] = {}
+  end
+  if not DisenchanterPlusDB["chars"][charKey] then
+    DisenchanterPlusDB["chars"][charKey] = defaults_char
+  end
+
+  DisenchanterPlusDB["realms"][realmKey]["version"] = DisenchanterPlus.addonVersion
+  DisenchanterPlusDB["realms"][realmKey]["chars"][charKey] = true
+  DisenchanterPlusDB["chars"][charKey].info = info
 end

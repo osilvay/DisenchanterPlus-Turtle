@@ -42,48 +42,6 @@ function DisenchanterPlus:OnInitialize()
   self.addonName = "DisenchanterPlus"
   self.addonVersion = "0.0.1"
   self.addonColoredName = string.format("|c%sDisenchanter|r |c%sPlus|r", self.textColor, self.addonColor)
-
-  local realmName = GetRealmName()
-  local name = UnitName("player")
-  local className, classFilename, classId = UnitClass("player")
-  local raceName = UnitRace("player")
-  local level = UnitLevel("player")
-  local factionName = UnitFactionGroup("player")
-  local locale = GetLocale()
-  local charKey = name .. " of " .. realmName
-  local realmKey = realmName .. " - " .. factionName
-  local info = {
-    realmName = realmName,
-    name = name,
-    level = level,
-    className = className,
-    classFilename = classFilename,
-    classId = classId,
-    raceName = raceName,
-    factionName = factionName,
-    locale = locale,
-    characterKey = charKey,
-    realmKey = realmKey
-  }
-  self.info = info
-
-  if not DisenchanterPlusDB["realms"] then
-    DisenchanterPlusDB["realms"] = {}
-  end
-  if not DisenchanterPlusDB["realms"][realmKey] then
-    DisenchanterPlusDB["realms"][realmKey] = defaults_realm
-  end
-
-  if not DisenchanterPlusDB["chars"] then
-    DisenchanterPlusDB["chars"] = {}
-  end
-  if not DisenchanterPlusDB["chars"][charKey] then
-    DisenchanterPlusDB["chars"][charKey] = defaults_char
-  end
-
-  DisenchanterPlusDB["realms"][realmKey]["version"] = self.addonVersion
-  DisenchanterPlusDB["realms"][realmKey]["chars"][charKey] = true
-  DisenchanterPlusDB["chars"][charKey].info = info
 end
 
 ---Print
@@ -96,7 +54,6 @@ function DisenchanterPlus:Print(message, withoutHeader)
   else
     finalMessage = string.format("|c%sDP|r: %s", DisenchanterPlus.addonColor, tostring(message) or "nil")
   end
-
   DEFAULT_CHAT_FRAME:AddMessage(finalMessage)
 end
 

@@ -4,25 +4,18 @@
   <GameTooltip name="DisenchanterPlusTooltip" inherits="GameTooltipTemplate" parent="UIParent" hidden="true" />
   <Frame name="DisenchanterPlusHeaderFrame" frameStrata="BACKGROUND" enableMouse="true" movable="true" parent="UIParent" hidden="true">
     <Size>
-      <AbsDimension x="350" y="33"/>
+      <AbsDimension x="350" y="48"/>
     </Size>
     <Anchors>
       <Anchor point="CENTER"/>
     </Anchors>
-    <Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
-      <BackgroundInsets>
-        <AbsInset left="3" right="4" top="5" bottom="5"/>
-      </BackgroundInsets>
-      <TileSize>
-        <AbsValue val="16"/>
-      </TileSize>
-      <EdgeSize>
-        <AbsValue val="16"/>
-      </EdgeSize>
+    <Backdrop bgFile="Interface\AddOns\DisenchanterPlus-Turtle\Images\DisenchanterFrame\UI-Achievement-Frame-Header" edgeFile="Interface\AddOns\DisenchanterPlus-Turtle\Images\DisenchanterFrame\UI-Achievement-Metal-Borde" tile="false">
+      <BackgroundInsets left="3" right="4" top="5" bottom="5"/>
+      <EdgeSize val="28"/>
     </Backdrop>
     <Layers>
       <Layer level="MEDIUM">
-        <FontString name="$parentAddonName" inherits="GameFontNormalLarge" text="|cffc1c1c1Disenchanter Plus|r" justifyH="LEFT" justifyV="CENTER">
+        <FontString name="$parentAddonName" inherits="GameFontNormalLarge" text="|cffe1e1e1Achievements|r |cFFED6BFFPlus|r" justifyH="LEFT" justifyV="CENTER">
           <Size>
             <AbsDimension x="200" y="24"/>
           </Size>
@@ -44,7 +37,7 @@
         <Anchors>
           <Anchor point="LEFT" relativePoint="LEFT">
             <Offset>
-              <AbsDimension x="10" y="0"/>
+              <AbsDimension x="12" y="0"/>
             </Offset>
           </Anchor>
         </Anchors>
@@ -97,24 +90,24 @@
             DisenchanterPlusTooltip:Hide();
           </OnLeave>
         </Scripts>
-        <NormalTexture file="Interface\AddOns\AchievementsPlus-Turtle\Images\Icons\close_c">
+        <NormalTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\Icons\close_c">
           <TexCoords left="0" top="0" right="1" bottom="1"/>
         </NormalTexture>
-        <PushedTexture file="Interface\AddOns\AchievementsPlus-Turtle\Images\Icons\close">
+        <PushedTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\Icons\close">
           <TexCoords left="0" top="0" right="1" bottom="1"/>
         </PushedTexture>
-        <DisabledTexture file="Interface\AddOns\AchievementsPlus-Turtle\Images\Icons\close_d">
+        <DisabledTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\Icons\close_d">
           <TexCoords left="0" top="0" right="1" bottom="1"/>
         </DisabledTexture>
       </Button>
       <Button name="$parent_PlayButton" inherits="UIPanelButtonTemplate" hidden="true">
         <Size>
-          <AbsDimension x="15" y="15"/>
+          <AbsDimension x="24" y="24"/>
         </Size>
         <Anchors>
           <Anchor point="RIGHT" relativePoint="LEFT" relativeTo="$parent_CloseButton">
             <Offset>
-              <AbsDimension x="-8" y="0"/>
+              <AbsDimension x="-4" y="0"/>
             </Offset>
           </Anchor>
         </Anchors>
@@ -133,23 +126,23 @@
           </OnLeave>
         </Scripts>
         <NormalTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\Icons\play_c">
-          <TexCoords left="0.175" top="0.175" right="0.825" bottom="0.825"/>
+          <TexCoords left="0" top="0" right="1" bottom="1"/>
         </NormalTexture>
-        <PushedTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\Icons\play_c">
-          <TexCoords left="0.175" top="0.175" right="0.825" bottom="0.825"/>
+        <PushedTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\Icons\play">
+          <TexCoords left="0" top="0" right="1" bottom="1"/>
         </PushedTexture>
-        <HighlightTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\Icons\play_a">
-          <TexCoords left="0.175" top="0.175" right="0.825" bottom="0.825"/>
-        </HighlightTexture>
+        <DisabledTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\Icons\play_d">
+          <TexCoords left="0" top="0" right="1" bottom="1"/>
+        </DisabledTexture>
       </Button>
       <Button name="$parent_PauseButton" inherits="UIPanelButtonTemplate" hidden="true">
         <Size>
-          <AbsDimension x="15" y="15"/>
+          <AbsDimension x="24" y="24"/>
         </Size>
         <Anchors>
           <Anchor point="RIGHT" relativePoint="LEFT" relativeTo="$parent_CloseButton">
             <Offset>
-              <AbsDimension x="-8" y="0"/>
+              <AbsDimension x="-4" y="0"/>
             </Offset>
           </Anchor>
         </Anchors>
@@ -168,14 +161,14 @@
           </OnLeave>
         </Scripts>
         <NormalTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\Icons\pause_c">
-          <TexCoords left="0.175" top="0.175" right="0.825" bottom="0.825"/>
+          <TexCoords left="0" top="0" right="1" bottom="1"/>
         </NormalTexture>
-        <PushedTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\Icons\pause_c">
-          <TexCoords left="0.175" top="0.175" right="0.825" bottom="0.825"/>
+        <PushedTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\Icons\pause">
+          <TexCoords left="0" top="0" right="1" bottom="1"/>
         </PushedTexture>
-        <HighlightTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\Icons\pause_a">
-          <TexCoords left="0.175" top="0.175" right="0.825" bottom="0.825"/>
-        </HighlightTexture>
+        <DisabledTexture file="Interface\AddOns\DisenchanterPlus-Turtle\Images\Icons\pause_d">
+          <TexCoords left="0" top="0" right="1" bottom="1"/>
+        </DisabledTexture>
       </Button>
       <Button name="$parent_QualityEpicButton" inherits="UIPanelButtonTemplate" hidden="false">
         <Size>
@@ -184,7 +177,7 @@
         <Anchors>
           <Anchor point="RIGHT" relativePoint="LEFT" relativeTo="$parent_CloseButton">
             <Offset>
-              <AbsDimension x="-31" y="0"/>
+              <AbsDimension x="-36" y="0"/>
             </Offset>
           </Anchor>
         </Anchors>
@@ -280,7 +273,7 @@
     <Scripts>
       <OnLoad>
         this:SetBackdropColor(0.91, 0.41, 1, 0.9)
-        this:SetBackdropBorderColor(0.91, 0.41, 1, 0.8)
+        this:SetBackdropBorderColor(1, 1, 1, 0.95)
       </OnLoad>
       <OnMouseUp>
         if ( this.isMoving ) then
@@ -298,25 +291,18 @@
   </Frame>
   <Frame name="DisenchanterPlusFrame" frameStrata="BACKGROUND" enableMouse="true" parent="DisenchanterPlusHeaderFrame" hidden="false">
     <Size>
-      <AbsDimension x="350" y="120"/>
+      <AbsDimension x="350" y="130"/>
     </Size>
     <Anchors>
       <Anchor point="TOP" relativePoint="BOTTOM" relativeTo="DisenchanterPlusHeaderFrame">
         <Offset>
-          <AbsDimension x="0" y="6"/>
+          <AbsDimension x="0" y="12"/>
         </Offset>
       </Anchor>
     </Anchors>
-    <Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
-      <BackgroundInsets>
-        <AbsInset left="3" right="4" top="5" bottom="5"/>
-      </BackgroundInsets>
-      <TileSize>
-        <AbsValue val="16"/>
-      </TileSize>
-      <EdgeSize>
-        <AbsValue val="16"/>
-      </EdgeSize>
+    <Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\AddOns\DisenchanterPlus-Turtle\Images\DisenchanterFrame\UI-Achievement-Metal-Borde" tile="false">
+      <BackgroundInsets left="5" right="5" top="5" bottom="5"/>
+      <EdgeSize val="28"/>
     </Backdrop>
     <Layers>
       <Layer level="MEDIUM">
@@ -363,7 +349,7 @@
           <Anchors>
             <Anchor point="TOPLEFT" relativeTo="DisenchanterPlusFrame" relativePoint="TOPLEFT">
               <Offset>
-                <AbsDimension x="70" y="-11"/>
+                <AbsDimension x="70" y="-14"/>
               </Offset>
             </Anchor>
           </Anchors>
@@ -378,7 +364,7 @@
         <Anchors>
           <Anchor point="RIGHT" relativeTo="DisenchanterPlusFrame" relativePoint="BOTTOMRIGHT">
             <Offset>
-              <AbsDimension x="-10" y="20"/>
+              <AbsDimension x="-10" y="24"/>
             </Offset>
           </Anchor>
         </Anchors>
@@ -436,7 +422,7 @@
         <Anchors>
           <Anchor point="LEFT" relativeTo="DisenchanterPlusFrame" relativePoint="BOTTOMLEFT">
             <Offset>
-              <AbsDimension x="10" y="20"/>
+              <AbsDimension x="10" y="24"/>
             </Offset>
           </Anchor>
         </Anchors>
@@ -498,7 +484,7 @@
     <Scripts>
       <OnLoad>
         this:SetBackdropColor(0.41, 0.31, 0.41, 0.9)
-        this:SetBackdropBorderColor(0.91, 0.41, 1, 1)
+        this:SetBackdropBorderColor(0.61, 0.61, 0.61, 0.95)
       </OnLoad>
     </Scripts>
   </Frame>
@@ -509,7 +495,7 @@
     <Anchors>
       <Anchor point="TOP" relativePoint="TOPLEFT" relativeTo="DisenchanterPlusFrame">
         <Offset>
-          <AbsDimension x="40" y="-8"/>
+          <AbsDimension x="40" y="-14"/>
         </Offset>
       </Anchor>
     </Anchors>

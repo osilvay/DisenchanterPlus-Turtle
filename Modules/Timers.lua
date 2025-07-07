@@ -16,7 +16,7 @@ local metro = AceLibrary("Metrognome-2.0")
 function DP_Timers:Initialize()
   -- initializer timer
   if (not metro:MetroStatus("DisenchanterPlusInitializerTimer")) then
-    metro:RegisterMetro("DisenchanterPlusInitializerTimer", DP_EventManager.Initialize, 1)
+    metro:RegisterMetro("DisenchanterPlusInitializerTimer", DP_EventManager.Initialize, 3)
   end
   metro:Start("DisenchanterPlusInitializerTimer", 1)
 end
